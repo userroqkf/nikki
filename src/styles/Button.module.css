@@ -1,0 +1,32 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #FFF;
+  border-radius: 30px;
+  background: #4A98E9;
+  border: none;
+  
+  font-family: Arial;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  gap: 10px;
+}
+
+.button.small{
+  width: 80px;
+  height: 30px;
+}
+
+.button.medium{
+  width: 77px;
+  height: 39px;
+}
+
+.button.large{
+  padding: 15px 93px;
+}
