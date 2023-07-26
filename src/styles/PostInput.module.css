@@ -1,0 +1,18 @@
+.textArea {
+  width: 100%;
+}
+
+.input {
+  resize: none;
+  border: none;
+  width: inherit;
+
+  color:#5B7083;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.input:focus {
+  outline: none;
+}

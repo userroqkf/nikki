@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import ListView from "../components/ListView";
 
 const meta: Meta<typeof ListView> = {
