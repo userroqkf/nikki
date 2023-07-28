@@ -5,9 +5,9 @@ import PostIput from "./PostInput";
 import ProfilePicture from "./ProfilePicture";
 
 export default function PostBox() {
-  const [boxHeight, setBoxHeight] = useState(100);
-  const postBoxRef = useRef<HTMLDivElement>(null);
   const DefaultPostBoxPadding = 100;
+  const [boxHeight, setBoxHeight] = useState(DefaultPostBoxPadding);
+  const postBoxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (postBoxRef.current) {
