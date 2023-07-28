@@ -1,0 +1,61 @@
+.postContainer {
+  display: flex;  
+  flex-direction: row;
+  /* justify-content: center;  */
+  align-items: stretch;
+  min-height: 100px;
+
+  width: 600px;
+
+  border: 1px solid #EBEEF0;
+  border-radius: 5%;
+  padding: 10px;
+  box-sizing: border-box;
+
+  font-family: monospace;
+}
+
+.postContentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.profilePicturePosition {
+  display: flex;
+  align-items: flex-start;
+  justify-content: stretch;
+  /* height: 500px; */
+  padding-right: 10px;
+}
+
+.postInfo {
+  padding-top: 10px;
+}
+
+.postInfo > span:nth-child(-n + 1) {
+  font-weight: bold;
+}
+
+.postInfo > span:last-child {
+  padding-left: 10px;
+}
+
+.content {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.contentFooter {
+  display: flex;
+  flex-direction: row;
+}
+
+.contentFooter > * {
+  padding-right: 40px;
+}
+
+.icon{
+  padding-right: 3px;
+}
