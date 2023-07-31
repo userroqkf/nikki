@@ -9,7 +9,7 @@ export default meta;
 
 type Story = StoryObj<typeof ListView>;
 
-export const ListViewPreview: Story = {
+export const Primary: Story = {
   render: () => <ListView/>
 }
 
