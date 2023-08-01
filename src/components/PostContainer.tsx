@@ -20,7 +20,7 @@ export default function PostBox({profilePictureURL, content, fullName, username,
   const contentTextRef = useRef<HTMLDivElement>(null);
   const postContainerRef = useRef<HTMLDivElement>(null);
 
-  const [like, setLike] = useState(liked);
+  // const [like, setLike] = useState(liked);
   
   return (
     <div className={styles.postContainer} ref={postContainerRef}>
@@ -42,7 +42,7 @@ export default function PostBox({profilePictureURL, content, fullName, username,
          </div> 
         </div>
         <div className={styles.contentFooter}>
-          <LikeButton liked={like} setLike={setLike} likeCount={content.likeCount} />
+          <LikeButton liked={liked} likeCount={content.likeCount} />
           <CommentButton commentCount={content.commentCount} />
         </div>
       </div>
