@@ -16,7 +16,6 @@ const UploadFileButton = forwardRef(function({showImage, setShowImage}: Props, r
     setShowImage(objectUrl)
   }
 
-
   return ( 
   <div className={styles.imageUpload}>
       <label htmlFor="file-input">
