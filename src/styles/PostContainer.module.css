@@ -53,9 +53,12 @@
 }
 
 .contentFooter > * {
+  height: 13px;
+  width: 13px;
   padding-right: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.icon{
-  padding-right: 3px;
-}

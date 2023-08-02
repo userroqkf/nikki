@@ -35,7 +35,7 @@ export default function PostBox() {
         <PostIput setBoxHeight={setBoxHeight}/>
         {showImage && <ImagePreview setImageHeight={setImageHeight} showImage={showImage} />}
         <div className={styles.buttonPosition}>
-          <UploadFileButton showImage={showImage} setShowImage={setShowImage} ref={previewImageRef} />
+          <UploadFileButton setShowImage={setShowImage} ref={previewImageRef} />
           <Button label="nikki" size="medium"/>
         </div>
       </div>
