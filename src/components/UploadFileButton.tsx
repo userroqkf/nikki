@@ -4,17 +4,18 @@ import styles from "../styles/UploadFileButton.module.css";
 import { SetStateAction, Dispatch,  forwardRef, useEffect, useRef, useState} from "react";
 
 type Props = {
-  showImage: string;
   setShowImage: Dispatch<SetStateAction<string>>;
 }
 
-const UploadFileButton = forwardRef(function({showImage, setShowImage}: Props, ref: React.ForwardedRef<HTMLInputElement>) {
+const UploadFileButton = forwardRef(function({setShowImage}: Props, ref: React.ForwardedRef<HTMLInputElement>) {
 
   const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const objectUrl = URL.createObjectURL(e.target.files[0])
-    setShowImage(objectUrl)
-  }
+    if (e.target.files[0]) {
+      const objectUrl = URL.createObjectURL(e.target.files[0])
+      setShowImage(objectUrl)
+    }
+  };
 
   return ( 
   <div className={styles.imageUpload}>
