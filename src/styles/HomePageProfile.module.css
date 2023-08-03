@@ -1,0 +1,83 @@
+.homePageProfileLayout {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 410px;
+  border: 1px solid #EBEEF0;
+}
+
+.profileInfoLayout {
+  margin-top: 55px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+
+  height: 100%;
+}
+
+.nameLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profilePicturePos {
+  position: fixed;
+  top: 150px;
+  left: 30px;
+  /* border: 3px solid black; */
+  /* border-radius: 50%; */
+}
+
+.followerFollowingCount {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.followerFollowingCount > * {
+  margin-right: 40px;
+}
+
+.followerFollowingCount div {
+  color: #0F1419;
+  font-family: SF Compact Display;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.followerFollowingCount span {
+  color:#5B7083;
+  font-family: SF Compact Display;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.fullName {
+  color: #0F1419;
+  /* font-family: SF Compact Display; */
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.252px;
+}
+
+.username {
+  color: #5B7083;
+  /* font-family: SF Compact Display; */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
