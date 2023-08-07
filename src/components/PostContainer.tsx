@@ -3,6 +3,7 @@ import styles from "../styles/PostContainer.module.css"
 import { useRef, useState} from "react";
 import LikeButton from "./LikeButton";
 import CommentButton from "./CommentButton";
+
 type Props = {
   profilePictureURL: string;
   content: {
@@ -16,7 +17,8 @@ type Props = {
   username: string;
   liked: boolean;
 }
-export default function PostBox({profilePictureURL, content, fullName, username, liked} : Props) {
+
+export default function PostContainer({profilePictureURL, content, fullName, username, liked} : Props) {
   const contentTextRef = useRef<HTMLDivElement>(null);
   const postContainerRef = useRef<HTMLDivElement>(null);
 
