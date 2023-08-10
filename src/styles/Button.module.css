@@ -5,8 +5,8 @@
 
   color: #FFF;
   border-radius: 30px;
-  background: #4A98E9;
-  border: none;
+  background: pink;
+  border: 1px solid pink;
   
   font-family: Arial;
   font-size: 14px;
@@ -17,16 +17,28 @@
   gap: 10px;
 }
 
-.button.small{
+.small{
   width: 80px;
+  min-width: 80px;
+  max-width: 80px;
   height: 30px;
 }
 
-.button.medium{
-  width: 77px;
-  height: 39px;
+.medium{
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  height: 40px;
 }
 
-.button.large{
-  padding: 15px 93px;
+.large{
+  width: 230px;
+  min-width: 230px;
+  max-width: 230px;
+  height: 45px;
+}
+
+.empty{
+  background: none;
+  color: pink;
 }
