@@ -1,6 +1,24 @@
 .layout {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   justify-content: center;
-  align-items: center;
+}
+
+.header {
+  display: flex;
+  /* align-items: flex-start; */
+  justify-content: flex-start;
+  padding-bottom: 20px;
+}
+
+.main {
+  border-left: 1px solid pink;
+  border-right: 1px solid pink;
+}
+
+.selectedPageName {
+  font-size: 25px;
+  padding-bottom: 20px;
+  color: pink;
 }

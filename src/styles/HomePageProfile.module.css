@@ -4,6 +4,8 @@
   width: 600px;
   height: 410px;
   border: 1px solid #EBEEF0;
+
+  position: relative;
 }
 
 .profileInfoLayout {
@@ -26,7 +28,7 @@
 }
 
 .profilePicturePos {
-  position: fixed;
+  position:absolute;
   top: 150px;
   left: 30px;
   /* border: 3px solid black; */

@@ -1,4 +1,4 @@
-import PostBox from "./PostBox";
+import HomePageProfile from "./HomePageProfile";
 import PostContainer from "./PostContainer";
 
 type postDataType = {
@@ -14,7 +14,7 @@ type postDataType = {
   liked: boolean;
 }
 
-export default function HomePageLayout() {
+export default function MyFeedLayout() {
   const fetchedDataMock = [
     {
       profilePictureURL:"https://picsum.photos/id/237/200/300",
@@ -44,7 +44,14 @@ export default function HomePageLayout() {
 
   return(
     <>
-      <PostBox />
+      <HomePageProfile 
+        profilePicture={"https://picsum.photos/id/237/300/300"}
+        backgroundImage={"https://picsum.photos/seed/picsum/2000/3000"}
+        fullName={"Frank Tom"}
+        username={"franktom293"}
+        followingCount={183}
+        followerCount={78}
+      />
       {fetchedDataMock.map((data: postDataType) => {
         const { profilePictureURL, content, fullName, username, liked }= data;
          return (
