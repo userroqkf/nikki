@@ -7,8 +7,8 @@
 
   width: 600px;
 
-  border: 1px solid #EBEEF0;
-  border-radius: 5%;
+  border-top: 1px solid pink;
+  border-bottom: 1px solid pink;
   padding: 10px;
   box-sizing: border-box;
 

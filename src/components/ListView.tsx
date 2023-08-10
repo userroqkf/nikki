@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import { faUser, faStar, faCalendar} from "@fortawesome/free-regular-svg-icons";
@@ -7,14 +7,18 @@ import { faUser as faUserFocus, faStar as faStarFocus, faCalendar as faCalendarF
 import ListItem from "./ListItem";
 import styles from "../styles/ListView.module.css";
 
-export default function ListView() {
-  interface ListItemInfo {
-    icon: ReactNode;
-    focusIcon: ReactNode;
-    label: string;
-  } 
+interface ListItemInfo {
+  icon: ReactNode;
+  focusIcon: ReactNode;
+  label: string;
+} 
 
-  const [focus, setFocus] = useState<string>("Home");
+type Props = {
+  focus: string;
+  setFocus: Dispatch<SetStateAction<string>>;
+}
+
+export default function ListView({focus, setFocus}: Props) {
 
   const listItemArr: ListItemInfo[] = [
     {
