@@ -24,6 +24,7 @@ export default function Layout({focus, setFocus,children}: Props) {
       </div>
       <main className={styles.main}>
         <div className={styles.selectedPageName}>
+          {focus}
         </div>
         <div>
           {children}
