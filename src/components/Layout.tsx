@@ -7,11 +7,10 @@ import logo from "../../public/logo.svg";
 
 type Props = {
   children: ReactNode;
-  focus: string;
-  setFocus: React.Dispatch<SetStateAction<string>>;
+  route: string;
 }
 
-export default function Layout({focus, setFocus,children}: Props) {
+export default function Layout({route, children}: Props) {
   return (
 <div className={styles.layout}>
       <div>
@@ -19,12 +18,12 @@ export default function Layout({focus, setFocus,children}: Props) {
           <Image src={logo} width={75} height={46.725} alt="logo"/>
         </header>
         <nav>
-          <ListView focus={focus} setFocus={setFocus}/>
+          <ListView route={route}/>
         </nav>
       </div>
       <main className={styles.main}>
         <div className={styles.selectedPageName}>
-          {focus}
+          {route}
         </div>
         <div>
           {children}
