@@ -11,36 +11,39 @@ interface ListItemInfo {
   icon: ReactNode;
   focusIcon: ReactNode;
   label: string;
+  link: string;
 } 
 
 type Props = {
-  focus: string;
-  setFocus: Dispatch<SetStateAction<string>>;
+  route: string;
 }
 
-export default function ListView({focus, setFocus}: Props) {
+export default function ListView({route}: Props) {
 
   const listItemArr: ListItemInfo[] = [
     {
       icon: <FontAwesomeIcon icon={faCalendar} />,
       focusIcon: <FontAwesomeIcon icon={faCalendarFocus}/>, 
-      label: "Home"
+      label: "Home",
+      link: ""
     },
     {
       icon: <FontAwesomeIcon icon={faUser} />,
       focusIcon: <FontAwesomeIcon icon={faUserFocus}/>,
-      label: "My Feed"
+      label: "My Feed",
+      link: "MyFeed"
     },
     {
       icon: <FontAwesomeIcon icon={faStar}/>,
       focusIcon: <FontAwesomeIcon icon={faStarFocus} />,
-      label: "Following"
+      label: "Following",
+      link: "following"
     }
   ]
 
   const listItem = listItemArr.map((value: ListItemInfo, index: number): ReactNode => {
     return (
-      <ListItem key={index} {...value} focus={focus} setFocus={setFocus}/>
+      <ListItem key={index} {...value} route={route} link={value.link}/>
     )
   })
 
