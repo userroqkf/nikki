@@ -1,10 +1,7 @@
-import HomePageProfile from '@/components/HomePageProfile'
-import Button from '../components/Button'
+import MainPage from "../components/MainPage";
 
 export default function Home() {
   return (
-    <>
-
-    </>
+    <MainPage />
   )
 }
