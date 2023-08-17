@@ -1,4 +1,3 @@
-'use client'
 import Layout from "./Layout";
 import HomePageLayout from "./HomePageLayout";
 

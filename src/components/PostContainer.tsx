@@ -1,3 +1,4 @@
+"use client"
 import ProfilePicture from "./ProfilePicture";
 import styles from "../styles/PostContainer.module.css"
 import { useRef, useState} from "react";

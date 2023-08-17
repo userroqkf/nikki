@@ -1,4 +1,3 @@
-'use client'
 import FollowingLayout from "../components/FollowingLayout";
 import Layout from "../components/Layout";
 
