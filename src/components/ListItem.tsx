@@ -11,11 +11,12 @@ type Props = {
 }
 
 export default function ListItem({icon, focusIcon, label, route, link}: Props) {
+  console.log("check label match route", label, typeof route, route)
   const router = useRouter();
   return (
     <div className={styles.list_item_box} onClick={() => router.push(`/${link}`) }>
       <div className={styles.icon_container}>
-        {label == route ? focusIcon : icon}
+        {label === route ? focusIcon : icon}
       </div>
       <div className={styles.text}>
         {label} 

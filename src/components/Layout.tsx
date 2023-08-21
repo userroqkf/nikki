@@ -11,6 +11,8 @@ type Props = {
 }
 
 export default function Layout({route, children}: Props) {
+  const validRouteString: string =  ["Home", "My Feed", "Following"].includes(route) ? route : "";
+
   return (
 <div className={styles.layout}>
       <div>
@@ -18,7 +20,7 @@ export default function Layout({route, children}: Props) {
           <Image src={logo} width={75} height={46.725} alt="logo"/>
         </header>
         <nav>
-          <ListView route={route}/>
+          <ListView route={validRouteString}/>
         </nav>
       </div>
       <main className={styles.main}>
