@@ -36,7 +36,7 @@ export default function PostBox() {
         {showImage && <ImagePreview setImageHeight={setImageHeight} showImage={showImage} />}
         <div className={styles.buttonPosition}>
           <UploadFileButton setShowImage={setShowImage} ref={previewImageRef} />
-          <Button label="nikki" size="medium"/>
+          <Button label="nikki" size="medium" style="solid"/>
         </div>
       </div>
     </div>
