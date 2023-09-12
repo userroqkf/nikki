@@ -1,11 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
-import styles from "../styles/PostInput.module.css";
-  
+import { useEffect, useState, useRef } from "react"
+import styles from "../styles/CommentInput.module.css"
+
 type Props = {
   setBoxHeight: React.Dispatch<React.SetStateAction<number>>;
 }
-export default function PostIput({setBoxHeight}: Props) {
-  const [text, setText] = useState("");
+
+export default function CommentInput({setBoxHeight}: Props) {
+  const [text, setText] = useState("")
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -15,24 +16,23 @@ export default function PostIput({setBoxHeight}: Props) {
       textareaRef.current.style.height = getScrollHeight + "px";
       setBoxHeight(getScrollHeight);
     }
-  }, [textareaRef, text, setBoxHeight]);
+  }, [setBoxHeight,textareaRef, text])
   
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const val = e.target?.value;
-    console.log(val)
-    setText(val);
-
+    const val = e.target.value;
+    setText(val)
   }
+
   return (
-      <div className={styles.textArea}>
-      <label htmlFor="postInput"> </label>
+    <div className={styles.textArea}>
+      <label htmlFor="commentInput"> </label>
       <textarea 
         className={styles.input}
-        id="postInput"
-        placeholder="How is your day?"
+        id="commentInput"
+        placeholder="Comment...."
         onChange={handleChange}
-        ref={textareaRef}
         value={text}
+        ref={textareaRef}
       />
     </div>
   )

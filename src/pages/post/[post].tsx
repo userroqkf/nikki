@@ -1,3 +1,4 @@
+import CommentBox from "@/components/CommentBox"
 import Comment from "../../components/Comment"
 import Layout from "../../components/Layout"
 import PostContainer from "../../components/PostContainer"
@@ -17,16 +18,34 @@ export default function PostPage({data}) {
   const {postsData, commentsData} = JSON.parse(data); 
   return (
     <Layout route="Post">
-      <PostContainer profilePictureURL={postsData.profilePictureURL} content={postsData.content} fullName={postsData.fullName} username={postsData.username} liked={postsData.liked} />
+      <PostContainer 
+        profilePictureURL={postsData.profilePictureURL}
+        content={postsData.content}
+        fullName={postsData.fullName}
+        username={postsData.username}
+        liked={postsData.liked}
+      />
+      <div className={styles.pageName}>
+        Post Comment
+      </div>
+      <CommentBox profilePictureURL={"https://picsum.photos/id/237/200/300"} />
       <div className={styles.pageName}>
         Comments
       </div>
-      {commentsData.map((comment:commentType) => {
+      {commentsData.map((comment:commentType, index: number) => {
         const {profilePictureURL, fullName, username, content} = comment;
-        return (<Comment profilePictureURL={profilePictureURL} fullName={fullName} username={username} content={content}/>)
+        return (
+          <Comment
+            key={index}
+            profilePictureURL={profilePictureURL}
+            fullName={fullName}
+            username={username}
+            content={content}
+          />
+        )
         })
       }
-  </Layout>
+    </Layout>
  )
 } 
 
@@ -43,7 +62,7 @@ export async function getServerSideProps() {
     username: "tomtom19238",
     liked: false,
   }
-
+ 
   const tempCommentData = [
     {
       profilePictureURL:"https://picsum.photos/id/237/200/300",
