@@ -21,10 +21,7 @@ export default function PostBox() {
     }
   }, [boxHeight, imageHeight])
 
-
   const profilePictureURL = "https://picsum.photos/id/237/200/300";
-  
-
 
   return (
     <div className={styles.postBoxLayout} ref={postBoxRef}>
@@ -33,7 +30,7 @@ export default function PostBox() {
       </div>
       <div className={styles.inputLayout}>
         <PostIput setBoxHeight={setBoxHeight}/>
-        {showImage && <ImagePreview setImageHeight={setImageHeight} showImage={showImage} />}
+        {showImage && <ImagePreview setImageHeight={setImageHeight} setShowImage={setShowImage} showImage={showImage} />}
         <div className={styles.buttonPosition}>
           <UploadFileButton setShowImage={setShowImage} ref={previewImageRef} />
           <Button label="nikki" size="medium" style="solid"/>

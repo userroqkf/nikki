@@ -1,15 +1,19 @@
 import { SetStateAction, useRef} from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import styles from "../styles/ImagePreview.module.css"
 
 type Props = {
   showImage: string;
   setImageHeight: React.Dispatch<SetStateAction<number>>;
+  setShowImage: React.Dispatch<SetStateAction<string>>;
 }
 
-export default function ImagePreview({showImage, setImageHeight}: Props) {
+export default function ImagePreview({showImage, setImageHeight, setShowImage}: Props) {
   const imagePreviewRef = useRef<HTMLImageElement>(null);
 
   const imageWidthHeightCalculation = (width: number, height: number): number[] => {
-    const maxWidth = 520;
+    const maxWidth = 510;
     const reducedMultiple = width/maxWidth;
     return width > maxWidth ? [maxWidth, height/reducedMultiple] : [width, height];
   }
@@ -25,7 +29,17 @@ export default function ImagePreview({showImage, setImageHeight}: Props) {
     }
   }
 
+  const removeImagePreview = () => {
+    setShowImage("")
+    setImageHeight(0)
+  }
+
   return (
-    <img alt="image-preview"  src={showImage} ref={imagePreviewRef} onLoad={getImageDimensions}/>
+    <div className={styles.imagePreview}>
+      <div className={styles.closeButton}>
+        <FontAwesomeIcon icon={faTrash} onClick={removeImagePreview}/>
+      </div>
+      <img alt="image-preview" src={showImage} ref={imagePreviewRef} onLoad={getImageDimensions}/>
+    </div>
   );
 }

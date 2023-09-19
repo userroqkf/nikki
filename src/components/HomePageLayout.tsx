@@ -34,7 +34,8 @@ export default function HomePageLayout() {
         text: "Hello this is Tom and I am just testing this component out, Hello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component ouHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component out,Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out",
         datePosted: "25s",
         likeCount: 21,
-        commentCount: 7
+        commentCount: 7,
+        image: "https://picsum.photos/id/237/200/300",
       },
       fullName: "Tom Tom",
       username: "tomtom19238",
@@ -45,10 +46,11 @@ export default function HomePageLayout() {
   return(
     <>
       <PostBox />
-      {fetchedDataMock.map((data: postDataType) => {
+      {fetchedDataMock.map((data: postDataType, index: number) => {
         const { profilePictureURL, content, fullName, username, liked }= data;
-         return (
+        return (
           <PostContainer
+            key={index}
             profilePictureURL={profilePictureURL}
             content={content}
             fullName={fullName}

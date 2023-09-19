@@ -24,3 +24,7 @@
   padding: 20px;
   color: pink;
 }
+
+.sidebar {
+  cursor: pointer;
+}

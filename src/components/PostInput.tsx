@@ -2,10 +2,11 @@ import React, {useEffect, useRef, useState} from "react";
 import styles from "../styles/PostInput.module.css";
   
 type Props = {
+  initialText? : string;
   setBoxHeight: React.Dispatch<React.SetStateAction<number>>;
 }
-export default function PostIput({setBoxHeight}: Props) {
-  const [text, setText] = useState("");
+export default function PostIput({initialText, setBoxHeight}: Props) {
+  const [text, setText] = useState(initialText);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -19,7 +20,6 @@ export default function PostIput({setBoxHeight}: Props) {
   
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = e.target?.value;
-    console.log(val)
     setText(val);
 
   }
