@@ -14,10 +14,11 @@ export default function userPage({userData}) {
         followingCount={183}
         followerCount={78}
       />
-      {userData.map((data) => {
+      {userData.map((data, index: number) => {
         const { profilePictureURL, content, fullName, username, liked }= data;
-         return (
+        return (
           <PostContainer
+            key={index}
             profilePictureURL={profilePictureURL}
             content={content}
             fullName={fullName}

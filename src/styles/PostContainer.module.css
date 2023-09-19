@@ -4,7 +4,7 @@
   /* justify-content: center;  */
   align-items: stretch;
   min-height: 100px;
-
+  position: relative;
   width: 600px;
 
   border-top: 1px solid pink;
@@ -62,3 +62,29 @@
   justify-content: flex-start;
 }
 
+.buttonPosition {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+}
+.editButton{
+  color: pink;
+  margin-right: 5px;
+}
+
+.editButton:hover{
+  color: red;
+  cursor: pointer;
+}
+
+.deleteButton {
+  color: pink;
+  margin-right: 5px;
+}
+
+.deleteButton:hover{
+  color: red;
+  cursor: pointer;
+}

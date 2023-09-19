@@ -45,17 +45,19 @@ export default function MyFeedLayout() {
   return(
     <>
       <HomePageProfile 
-        profilePicture={"https://picsum.photos/id/237/300/300"}
-        backgroundImage={"https://picsum.photos/seed/picsum/2000/3000"}
+        profilePictureURL={"https://picsum.photos/id/237/300/300"}
+        backgroundImageURL={"https://picsum.photos/seed/picsum/2000/3000"}
         fullName={"Frank Tom"}
         username={"franktom293"}
         followingCount={183}
         followerCount={78}
+        following={true}
       />
-      {fetchedDataMock.map((data: postDataType) => {
+      {fetchedDataMock.map((data: postDataType, index: number) => {
         const { profilePictureURL, content, fullName, username, liked }= data;
-         return (
+        return (
           <PostContainer
+            key={index}
             profilePictureURL={profilePictureURL}
             content={content}
             fullName={fullName}

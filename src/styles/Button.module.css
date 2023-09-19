@@ -15,6 +15,7 @@
   line-height: normal;
 
   gap: 10px;
+  cursor: pointer;
 }
 
 .small{

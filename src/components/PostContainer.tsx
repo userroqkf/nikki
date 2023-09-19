@@ -4,6 +4,12 @@ import styles from "../styles/PostContainer.module.css"
 import { useRef, useState} from "react";
 import LikeButton from "./LikeButton";
 import CommentButton from "./CommentButton";
+import EditingBox from "./EditingBox";
+import Image from "next/image";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
   profilePictureURL: string;
@@ -23,32 +29,56 @@ export default function PostContainer({profilePictureURL, content, fullName, use
   const contentTextRef = useRef<HTMLDivElement>(null);
   const postContainerRef = useRef<HTMLDivElement>(null);
 
-  // const [like, setLike] = useState(liked);
+  // used for updating post when confirmed
+  const [postContent, setPostContent] = useState(content);
   
+  //used for editing post / before updating value to db
+  const [text, setText] = useState<string>(postContent.text);
+  const [image, setImage] = useState<string | null> (postContent.image? postContent.image : null)
+
+  const [editing, setEditing] = useState<boolean>(false)
+
+  const deletePost = () => {
+    // remove from db, if no error
+    // from array of posts filter 
+    console.log("delete obj");
+  }
+
+  const uploadImage = () => {
+
+  }
+
   return (
     <div className={styles.postContainer} ref={postContainerRef}>
+      <button className={styles.buttonPosition}>
+        <FontAwesomeIcon className={styles.editButton} icon={faPenToSquare} onClick={() => setEditing(!editing)}/>
+        <FontAwesomeIcon className={styles.deleteButton} icon={faTrash} onClick={deletePost}/>
+      </button>
       <div className={styles.profilePicturePosition}>
         <ProfilePicture profilePictureURL={profilePictureURL}/>
       </div>
+    {!editing && 
       <div className={styles.postContentContainer}>
         <div className={styles.postInfo}>
           <span> {fullName} </span>
           <span> @{username} </span>
-          <span> {content.datePosted} </span>
+          <span> {postContent.datePosted} </span>
         </div>
         <div className={styles.content}>
           <div ref={contentTextRef}>
-            {content.text}
+            {postContent.text}
           </div>
-          <div>
-            {content.image}
-         </div> 
+          {postContent.image && <Image src={postContent.image} width={100} height={100} alt="image"/>}
         </div>
         <div className={styles.contentFooter}>
-          <LikeButton liked={liked} likeCount={content.likeCount} />
-          <CommentButton commentCount={content.commentCount} />
+          <LikeButton liked={liked} likeCount={postContent.likeCount} />
+          <CommentButton commentCount={postContent.commentCount} />
         </div>
       </div>
+      }
+      {editing && 
+        <EditingBox initialText={postContent.text} initialImage={postContent.image}/>
+      }
     </div>
   ) 
 }

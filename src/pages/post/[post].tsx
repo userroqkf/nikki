@@ -3,6 +3,7 @@ import Comment from "../../components/Comment"
 import Layout from "../../components/Layout"
 import PostContainer from "../../components/PostContainer"
 import styles from "../../styles/[post].module.css"
+import { Suspense } from "react"
 
 type commentType = {
   profilePictureURL: string;
@@ -18,13 +19,14 @@ export default function PostPage({data}) {
   const {postsData, commentsData} = JSON.parse(data); 
   return (
     <Layout route="Post">
-      <PostContainer 
-        profilePictureURL={postsData.profilePictureURL}
-        content={postsData.content}
-        fullName={postsData.fullName}
-        username={postsData.username}
-        liked={postsData.liked}
-      />
+      <Suspense fallback={<p>Loading Post Data</p>}> 
+        <PostContainer 
+          profilePictureURL={postsData.profilePictureURL}
+          content={postsData.content}
+          fullName={postsData.fullName}
+          username={postsData.username}
+          liked={postsData.liked}
+        />
       <div className={styles.pageName}>
         Post Comment
       </div>
@@ -45,12 +47,13 @@ export default function PostPage({data}) {
         )
         })
       }
+      </Suspense>
     </Layout>
- )
+  )
 } 
 
 export async function getServerSideProps() {
-   const tempPostData = {
+  const tempPostData = {
     profilePictureURL:"https://picsum.photos/id/237/200/300",
     content: {
       text: "Hello this is Tom and I am just testing this component out",
@@ -62,7 +65,7 @@ export async function getServerSideProps() {
     username: "tomtom19238",
     liked: false,
   }
- 
+
   const tempCommentData = [
     {
       profilePictureURL:"https://picsum.photos/id/237/200/300",
@@ -125,7 +128,7 @@ export async function getServerSideProps() {
       resolve(
         JSON.stringify({"postsData": tempPostData , "commentsData": tempCommentData})
       );
-    }, 3000);
+    }, 0);
   });
 
   return { props: {data}}
