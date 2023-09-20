@@ -1,52 +1,13 @@
 import FollowingContainer from "./FollowingContainer";
 import styles from "@/_styles/FollowingLayout.module.css"
 
-type infoType  = {
-  profilePictureURL: string;
-  fullName: string;
-  username: string;
-  following: boolean;
-}
-export default function FollowingLayout() {
-  const followingUserInfoTest: infoType[]= [
-    {
-      profilePictureURL: "https://picsum.photos/id/237/200/300",
-      fullName: "Jason Neo",
-      username: "jasonneo392",
-      following: true,
-    },
-    {
-      profilePictureURL: "https://picsum.photos/id/237/200/300",
-      fullName: "Jason Neo",
-      username: "jasonneo392",
-      following: true,
-    },
-    {
-      profilePictureURL: "https://picsum.photos/id/237/200/300",
-      fullName: "Jason Neo",
-      username: "jasonneo392",
-      following: true,
-    },
-    {
-      profilePictureURL: "https://picsum.photos/id/237/200/300",
-      fullName: "Jason Neo",
-      username: "jasonneo392",
-      following: true,
-    },
-    {
-      profilePictureURL: "https://picsum.photos/id/237/200/300",
-      fullName: "Jason Neo",
-      username: "jasonneo392",
-      following: true,
-    },
-  ]
-
+export default function FollowingLayout({data}) {
   return (
     <>
       <div className={styles.selectedPageName}>
         Following
       </div>
-      {followingUserInfoTest.map((userinfo, index) => {
+      {data.map((userinfo, index) => {
         return <FollowingContainer key={index} {...userinfo}/>
       })}
     </>

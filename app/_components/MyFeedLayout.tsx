@@ -14,33 +14,7 @@ type postDataType = {
   liked: boolean;
 }
 
-export default function MyFeedLayout() {
-  const fetchedDataMock = [
-    {
-      profilePictureURL:"https://picsum.photos/id/237/200/300",
-      content: {
-        text: "Hello this is Tom and I am just testing this component out",
-        datePosted: "25s",
-        likeCount: 21,
-        commentCount: 7
-      },
-      fullName:"Tom Tom",
-      username: "tomtom19238",
-      liked: false,
-    },
-    {
-      profilePictureURL: "https://picsum.photos/id/237/200/300",
-      content: {
-        text: "Hello this is Tom and I am just testing this component out, Hello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component ouHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component out,Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out",
-        datePosted: "25s",
-        likeCount: 21,
-        commentCount: 7
-      },
-      fullName: "Tom Tom",
-      username: "tomtom19238",
-      liked: true,
-    }
-    ]
+export default function MyFeedLayout({data}) {
 
   return(
     <>
@@ -53,7 +27,7 @@ export default function MyFeedLayout() {
         followerCount={78}
         following={true}
       />
-      {fetchedDataMock.map((data: postDataType, index: number) => {
+      {data.map((data: postDataType, index: number) => {
         const { profilePictureURL, content, fullName, username, liked }= data;
         return (
           <PostContainer

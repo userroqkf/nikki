@@ -12,79 +12,83 @@ type commentType = {
     text: string;
   } 
 }
+async function getData() {
+  await new Promise((res) => setTimeout(res, 3000));
+  const tempPostData = {
+    profilePictureURL:"https://picsum.photos/id/237/200/300",
+    content: {
+      text: "Hello this is Tom and I am just testing this component out",
+      datePosted: "25s",
+      likeCount: 21,
+      commentCount: 7
+    },
+    fullName:"Tom Tom",
+    username: "tomtom19238",
+    liked: false,
+  }
 
-const tempPostData = {
-  profilePictureURL:"https://picsum.photos/id/237/200/300",
-  content: {
-    text: "Hello this is Tom and I am just testing this component out",
-    datePosted: "25s",
-    likeCount: 21,
-    commentCount: 7
-  },
-  fullName:"Tom Tom",
-  username: "tomtom19238",
-  liked: false,
+  const tempCommentData = [
+    {
+      profilePictureURL:"https://picsum.photos/id/237/200/300",
+      fullName:"Tom Tom",
+      username: "tomtom19238",
+      content: {
+        text: "This is a comment testing content string",
+        datePosted: "30s"
+      }
+    },
+    {
+      profilePictureURL:"https://picsum.photos/id/237/200/300",
+      fullName:"Tom Tom",
+      username: "tomtom19238",
+      content: {
+        text: "This is a comment testing content string",
+        datePosted: "30s"
+      }
+    },
+    {
+      profilePictureURL:"https://picsum.photos/id/237/200/300",
+      fullName:"Tom Tom",
+      username: "tomtom19238",
+      content: {
+        text: "This is a comment testing content string",
+        datePosted: "30s"
+      }
+    },
+    {
+      profilePictureURL:"https://picsum.photos/id/237/200/300",
+      fullName:"Tom Tom",
+      username: "tomtom19238",
+      content: {
+        text: "This is a comment testing content string",
+        datePosted: "30s"
+      }
+    },
+    {
+      profilePictureURL:"https://picsum.photos/id/237/200/300",
+      fullName:"Tom Tom",
+      username: "tomtom19238",
+      content: {
+        text: "This is a comment testing content string",
+        datePosted: "30s"
+      }
+    },
+    {
+      profilePictureURL:"https://picsum.photos/id/237/200/300",
+      fullName:"Tom Tom",
+      username: "tomtom19238",
+      content: {
+        text: "This is a comment testing content string",
+        datePosted: "30s"
+      }
+    },
+  ]
+  const data = {postsData: tempPostData, commentsData: tempCommentData}
+  return data
 }
 
-const tempCommentData = [
-  {
-    profilePictureURL:"https://picsum.photos/id/237/200/300",
-    fullName:"Tom Tom",
-    username: "tomtom19238",
-    content: {
-      text: "This is a comment testing content string",
-      datePosted: "30s"
-    }
-  },
-  {
-    profilePictureURL:"https://picsum.photos/id/237/200/300",
-    fullName:"Tom Tom",
-    username: "tomtom19238",
-    content: {
-      text: "This is a comment testing content string",
-      datePosted: "30s"
-    }
-  },
-  {
-    profilePictureURL:"https://picsum.photos/id/237/200/300",
-    fullName:"Tom Tom",
-    username: "tomtom19238",
-    content: {
-      text: "This is a comment testing content string",
-      datePosted: "30s"
-    }
-  },
-  {
-    profilePictureURL:"https://picsum.photos/id/237/200/300",
-    fullName:"Tom Tom",
-    username: "tomtom19238",
-    content: {
-      text: "This is a comment testing content string",
-      datePosted: "30s"
-    }
-  },
-  {
-    profilePictureURL:"https://picsum.photos/id/237/200/300",
-    fullName:"Tom Tom",
-    username: "tomtom19238",
-    content: {
-      text: "This is a comment testing content string",
-      datePosted: "30s"
-    }
-  },
-  {
-    profilePictureURL:"https://picsum.photos/id/237/200/300",
-    fullName:"Tom Tom",
-    username: "tomtom19238",
-    content: {
-      text: "This is a comment testing content string",
-      datePosted: "30s"
-    }
-  },
-]
-const data = {postsData: tempPostData, commentsData: tempCommentData}
-
-export default function PostPage() {
+export default async function PostPage() {
+  const data = await getData();
   const {postsData, commentsData} = data;
   return (
     <div>
@@ -121,80 +125,3 @@ export default function PostPage() {
     </div>
   )
 } 
-
-// export async function getServerSideProps() {
-//   const tempPostData = {
-//     profilePictureURL:"https://picsum.photos/id/237/200/300",
-//     content: {
-//       text: "Hello this is Tom and I am just testing this component out",
-//       datePosted: "25s",
-//       likeCount: 21,
-//       commentCount: 7
-//     },
-//     fullName:"Tom Tom",
-//     username: "tomtom19238",
-//     liked: false,
-//   }
-
-//   const tempCommentData = [
-//     {
-//       profilePictureURL:"https://picsum.photos/id/237/200/300",
-//       fullName:"Tom Tom",
-//       username: "tomtom19238",
-//       content: {
-//         text: "This is a comment testing content string",
-//         datePosted: "30s"
-//       }
-//     },
-//     {
-//       profilePictureURL:"https://picsum.photos/id/237/200/300",
-//       fullName:"Tom Tom",
-//       username: "tomtom19238",
-//       content: {
-//         text: "This is a comment testing content string",
-//         datePosted: "30s"
-//       }
-//     },
-//     {
-//       profilePictureURL:"https://picsum.photos/id/237/200/300",
-//       fullName:"Tom Tom",
-//       username: "tomtom19238",
-//       content: {
-//         text: "This is a comment testing content string",
-//         datePosted: "30s"
-//       }
-//     },
-//     {
-//       profilePictureURL:"https://picsum.photos/id/237/200/300",
-//       fullName:"Tom Tom",
-//       username: "tomtom19238",
-//       content: {
-//         text: "This is a comment testing content string",
-//         datePosted: "30s"
-//       }
-//     },
-//     {
-//       profilePictureURL:"https://picsum.photos/id/237/200/300",
-//       fullName:"Tom Tom",
-//       username: "tomtom19238",
-//       content: {
-//         text: "This is a comment testing content string",
-//         datePosted: "30s"
-//       }
-//     },
-//     {
-//       profilePictureURL:"https://picsum.photos/id/237/200/300",
-//       fullName:"Tom Tom",
-//       username: "tomtom19238",
-//       content: {
-//         text: "This is a comment testing content string",
-//         datePosted: "30s"
-//       }
-//     },
-//   ]
-//   await new Promise((res) => setTimeout(res, 5000))
-
-//   const data = JSON.stringify({"postsData": tempPostData , "commentsData": tempCommentData});
-
-//   return { props: {data}}
-// } 
