@@ -1,5 +1,5 @@
-import HomePageProfile from "./HomePageProfile";
-import PostContainer from "./PostContainer";
+import HomePageProfile from "@/components/HomePageProfile";
+import PostContainer from "@/components/PostContainer";
 
 type postDataType = {
   profilePictureURL: string;

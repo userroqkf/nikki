@@ -1,11 +1,10 @@
 import { useEffect, useState, useRef} from "react";
-import styles from "../styles/Postbox.module.css";
-import Button from "./Button";
-import PostIput from "./PostInput";
-import ProfilePicture from "./ProfilePicture";
-import UploadFileButton from "./UploadFileButton";
-import Image from "next/image";
-import ImagePreview from "./ImagePreview";
+import styles from "@/styles/Postbox.module.css";
+import Button from "@/components/Button";
+import PostIput from "@/components/PostInput";
+import ProfilePicture from "@/components/ProfilePicture";
+import UploadFileButton from "@/components/UploadFileButton";
+import ImagePreview from "@/components/ImagePreview";
 
 export default function PostBox() {
   const DefaultPostBoxPadding = 100;
@@ -32,7 +31,7 @@ export default function PostBox() {
         <PostIput setBoxHeight={setBoxHeight}/>
         {showImage && <ImagePreview setImageHeight={setImageHeight} setShowImage={setShowImage} showImage={showImage} />}
         <div className={styles.buttonPosition}>
-          <UploadFileButton setShowImage={setShowImage} ref={previewImageRef} />
+          <UploadFileButton context={"newpostbutton"} setShowImage={setShowImage} ref={previewImageRef} />
           <Button label="nikki" size="medium" style="solid"/>
         </div>
       </div>

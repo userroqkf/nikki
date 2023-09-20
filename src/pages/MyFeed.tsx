@@ -3,8 +3,6 @@ import MyFeedLayout from "../components/MyFeedLayout";
 
 export default function MyFeed() {
   return (
-    <Layout route={"My Feed"} >
-      {<MyFeedLayout/>}
-    </Layout>
+    <MyFeedLayout/>
   )
 }

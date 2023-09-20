@@ -1,26 +1,33 @@
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
+"use client"
+import Link from "next/link";
 import styles from "../styles/ListItem.module.css";
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction, useEffect } from "react";
+import {usePathname} from "next/navigation";
 
 type Props = {
   icon?: ReactNode;
   focusIcon?: ReactNode;
   label: string;
-  route: string;
   link: string;
 }
 
-export default function ListItem({icon, focusIcon, label, route, link}: Props) {
-  console.log("check label match route", label, typeof route, route)
-  const router = useRouter();
+export default function ListItem({icon, focusIcon, label, link}: Props) {
+  // const router = useRouter();
+  const pathName = usePathname()
+  const validRouteString: string =  ["/", "/MyFeed", "/following"].includes(pathName) ? pathName.slice(1) : "";
+  
   return (
-    <div className={styles.list_item_box} onClick={() => router.push(`/${link}`) }>
-      <div className={styles.icon_container}>
-        {label === route ? focusIcon : icon}
+    // <div className={styles.list_item_box} onClick={() => router.push(`/${link}`) }>
+    <Link href={`/${link}`} className={styles.link}>
+      <div className={styles.list_item_box} >
+        <div className={styles.icon_container}>
+          {link === validRouteString ? focusIcon : icon}
+        </div>
+        <div className={styles.text}>
+          {label} 
+        </div>
       </div>
-      <div className={styles.text}>
-        {label} 
-      </div>
-    </div>
+    </Link>
   )
 }

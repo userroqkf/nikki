@@ -1,4 +1,4 @@
-import styles from '../styles/Button.module.css';
+import styles from '@/styles/Button.module.css';
 type Props =  {
   label: string;
   size? : 'small' | 'medium' | 'large';

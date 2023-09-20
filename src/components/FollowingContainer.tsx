@@ -1,6 +1,6 @@
-import Button from "./Button";
-import styles from "../styles/FollowingContainer.module.css"
-import ProfilePicture from "./ProfilePicture";
+import Button from "@/components/Button";
+import styles from "@/styles/FollowingContainer.module.css"
+import ProfilePicture from "@/components/ProfilePicture";
 import { useState } from "react";
 
 type Props = {

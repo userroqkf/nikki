@@ -1,5 +1,5 @@
-import ProfilePicture from "./ProfilePicture";
-import styles from "../styles/Comment.module.css";
+import ProfilePicture from "@/components/ProfilePicture";
+import styles from "@/styles/Comment.module.css";
 
 type Props = {
   profilePictureURL: string;

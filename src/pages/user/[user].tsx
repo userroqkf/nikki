@@ -1,11 +1,10 @@
-import HomePageProfile from "../../components/HomePageProfile"
-import PostContainer from "../../components/PostContainer";
-import Layout from "@/components/Layout"
+import HomePageProfile from "@components/HomePageProfile"
+import PostContainer from "@components/PostContainer";
 
 export default function userPage({userData}) {
   userData = JSON.parse(userData)
   return (
-    <Layout route="">
+    <div>
       <HomePageProfile 
         profilePicture={"https://picsum.photos/id/237/300/300"}
         backgroundImage={"https://picsum.photos/seed/picsum/2000/3000"}
@@ -28,7 +27,7 @@ export default function userPage({userData}) {
         )
       })
       }
-    </Layout>
+    </div>
   )  
 }
 

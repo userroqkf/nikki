@@ -1,7 +1,7 @@
-import ProfilePicture from "./ProfilePicture"
-import Button from "./Button"
-import styles from "../styles/CommentBox.module.css"
-import CommentInput from "./CommmentInput";
+import ProfilePicture from "@/components/ProfilePicture"
+import Button from "@/components/Button"
+import styles from "@/styles/CommentBox.module.css"
+import CommentInput from "@/components/CommmentInput";
 import { useState, useRef, useEffect } from "react";
 
 type Props = {

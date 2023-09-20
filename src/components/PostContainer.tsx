@@ -1,10 +1,9 @@
-"use client"
-import ProfilePicture from "./ProfilePicture";
-import styles from "../styles/PostContainer.module.css"
+import ProfilePicture from "@/components/ProfilePicture";
+import styles from "@/styles/PostContainer.module.css"
 import { useRef, useState} from "react";
-import LikeButton from "./LikeButton";
-import CommentButton from "./CommentButton";
-import EditingBox from "./EditingBox";
+import LikeButton from "@/components/LikeButton";
+import CommentButton from "@/components/CommentButton";
+import EditingBox from "@/components/EditingBox";
 import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,10 +30,6 @@ export default function PostContainer({profilePictureURL, content, fullName, use
 
   // used for updating post when confirmed
   const [postContent, setPostContent] = useState(content);
-  
-  //used for editing post / before updating value to db
-  const [text, setText] = useState<string>(postContent.text);
-  const [image, setImage] = useState<string | null> (postContent.image? postContent.image : null)
 
   const [editing, setEditing] = useState<boolean>(false)
 
@@ -44,16 +39,15 @@ export default function PostContainer({profilePictureURL, content, fullName, use
     console.log("delete obj");
   }
 
-  const uploadImage = () => {
-
-  }
 
   return (
     <div className={styles.postContainer} ref={postContainerRef}>
-      <button className={styles.buttonPosition}>
-        <FontAwesomeIcon className={styles.editButton} icon={faPenToSquare} onClick={() => setEditing(!editing)}/>
-        <FontAwesomeIcon className={styles.deleteButton} icon={faTrash} onClick={deletePost}/>
-      </button>
+      { !editing &&
+        <button className={styles.buttonPosition}>
+          <FontAwesomeIcon className={styles.editButton} icon={faPenToSquare} onClick={() => setEditing(true)}/>
+          <FontAwesomeIcon className={styles.deleteButton} icon={faTrash} onClick={deletePost}/>
+        </button> 
+      }
       <div className={styles.profilePicturePosition}>
         <ProfilePicture profilePictureURL={profilePictureURL}/>
       </div>
@@ -77,7 +71,7 @@ export default function PostContainer({profilePictureURL, content, fullName, use
       </div>
       }
       {editing && 
-        <EditingBox initialText={postContent.text} initialImage={postContent.image}/>
+        <EditingBox setEditing={setEditing} initialText={postContent.text} initialImage={postContent.image}/>
       }
     </div>
   ) 

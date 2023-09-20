@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faStar, faCalendar} from "@fortawesome/free-regular-svg-icons";
 import { faUser as faUserFocus, faStar as faStarFocus, faCalendar as faCalendarFocus } from "@fortawesome/free-solid-svg-icons";
 
-import ListItem from "./ListItem";
-import styles from "../styles/ListView.module.css";
+import ListItem from "@/components/ListItem";
+import styles from "@/styles/ListView.module.css";
 
 interface ListItemInfo {
   icon: ReactNode;
@@ -18,7 +18,7 @@ type Props = {
   route: string;
 }
 
-export default function ListView({route}: Props) {
+export default function ListView() {
 
   const listItemArr: ListItemInfo[] = [
     {
@@ -43,7 +43,7 @@ export default function ListView({route}: Props) {
 
   const listItem = listItemArr.map((value: ListItemInfo, index: number): ReactNode => {
     return (
-      <ListItem key={index} {...value} route={route} link={value.link}/>
+      <ListItem key={index} {...value} link={value.link}/>
     )
   })
 
