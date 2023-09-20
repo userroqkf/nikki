@@ -1,5 +1,6 @@
-import PostBox from "./PostBox";
-import PostContainer from "./PostContainer";
+import PostBox from "@/components/PostBox";
+import PostContainer from "@/components/PostContainer";
+import styles from "@/styles/HomePageLayout.module.css"
 
 type postDataType = {
   profilePictureURL: string;
@@ -45,6 +46,9 @@ export default function HomePageLayout() {
 
   return(
     <>
+      <div className={styles.selectedPageName}>
+        Home
+      </div>
       <PostBox />
       {fetchedDataMock.map((data: postDataType, index: number) => {
         const { profilePictureURL, content, fullName, username, liked }= data;

@@ -1,3 +1,7 @@
+.link {
+  text-decoration: none;
+  color: #0F1419;
+}
 .list_item_box {
   display: flex;
   flex-direction: row;

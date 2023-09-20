@@ -1,8 +1,8 @@
 import CommentBox from "@/components/CommentBox"
-import Comment from "../../components/Comment"
-import Layout from "../../components/Layout"
-import PostContainer from "../../components/PostContainer"
-import styles from "../../styles/[post].module.css"
+import Comment from "@/components/Comment"
+import Layout from "@/components/Layout"
+import PostContainer from "@/components/PostContainer"
+import styles from "@/styles/[post].module.css"
 import { Suspense } from "react"
 
 type commentType = {
@@ -18,15 +18,17 @@ type commentType = {
 export default function PostPage({data}) {
   const {postsData, commentsData} = JSON.parse(data); 
   return (
-    <Layout route="Post">
-      <Suspense fallback={<p>Loading Post Data</p>}> 
-        <PostContainer 
-          profilePictureURL={postsData.profilePictureURL}
-          content={postsData.content}
-          fullName={postsData.fullName}
-          username={postsData.username}
-          liked={postsData.liked}
-        />
+    <div>
+      <div className={styles.selectedPageName}>
+        Post
+      </div>
+      <PostContainer 
+        profilePictureURL={postsData.profilePictureURL}
+        content={postsData.content}
+        fullName={postsData.fullName}
+        username={postsData.username}
+        liked={postsData.liked}
+      />
       <div className={styles.pageName}>
         Post Comment
       </div>
@@ -47,8 +49,7 @@ export default function PostPage({data}) {
         )
         })
       }
-      </Suspense>
-    </Layout>
+    </div>
   )
 } 
 
@@ -122,14 +123,9 @@ export async function getServerSideProps() {
       }
     },
   ]
+  await new Promise((res) => setTimeout(res, 5000))
 
-  const data = await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(
-        JSON.stringify({"postsData": tempPostData , "commentsData": tempCommentData})
-      );
-    }, 0);
-  });
+  const data = JSON.stringify({"postsData": tempPostData , "commentsData": tempCommentData});
 
   return { props: {data}}
 } 

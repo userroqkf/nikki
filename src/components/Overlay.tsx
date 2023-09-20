@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCamera } from "@fortawesome/free-solid-svg-icons"
-import styles from "../styles/Overlay.module.css"
+import styles from "@/styles/Overlay.module.css"
 import { Dispatch, ReactNode, SetStateAction } from "react"
 
 type Props = {

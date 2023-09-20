@@ -6,11 +6,14 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
 import { Josefin_Sans } from 'next/font/google'
+import { useEffect } from "react";
+import Layout from "@/components/Layout";
 
 const josefinSans = Josefin_Sans({subsets: ["latin"]})
 
 export default function App({Component, pageProps}: AppProps) {
-  console.log("hello",josefinSans)
+  useEffect(() => {;
+  }, [])
   return (
     <>
       <style jsx global>{`
@@ -18,7 +21,9 @@ export default function App({Component, pageProps}: AppProps) {
           font-family: ${josefinSans.style.fontFamily};
         }
       `}</style>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 } 

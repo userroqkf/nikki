@@ -1,4 +1,5 @@
-import FollowingContainer from "./FollowingContainer";
+import FollowingContainer from "@/components/FollowingContainer";
+import styles from "@/styles/FollowingLayout.module.css"
 
 type infoType  = {
   profilePictureURL: string;
@@ -42,8 +43,11 @@ export default function FollowingLayout() {
 
   return (
     <>
-      {followingUserInfoTest.map((userinfo) => {
-        return <FollowingContainer {...userinfo}/>
+      <div className={styles.selectedPageName}>
+        Following
+      </div>
+      {followingUserInfoTest.map((userinfo, index) => {
+        return <FollowingContainer key={index} {...userinfo}/>
       })}
     </>
   )

@@ -1,7 +1,7 @@
 import { SetStateAction, useRef} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import styles from "../styles/ImagePreview.module.css"
+import styles from "@/styles/ImagePreview.module.css"
 
 type Props = {
   showImage: string;

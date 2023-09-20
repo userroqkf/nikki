@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import styles from "../styles/CommentInput.module.css"
+import styles from "@/styles/CommentInput.module.css"
 
 type Props = {
   setBoxHeight: React.Dispatch<React.SetStateAction<number>>;

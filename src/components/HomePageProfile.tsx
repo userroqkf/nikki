@@ -1,11 +1,9 @@
-"use client"
-
 import Image from "next/image";
-import ProfilePicture from "./ProfilePicture";
-import styles from "../styles/HomePageProfile.module.css"
-import Button from "./Button";
-import { useState, useEffect, Suspense } from "react";
-import Overlay from "./Overlay";
+import ProfilePicture from "@/components/ProfilePicture";
+import styles from "@/styles/HomePageProfile.module.css"
+import Button from "@/components/Button";
+import { useState} from "react";
+import Overlay from "@/components/Overlay";
 
 type Props = {
   profilePictureURL: string;

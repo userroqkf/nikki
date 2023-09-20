@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import styles from "../styles/PostInput.module.css";
+import styles from "@/styles/PostInput.module.css";
   
 type Props = {
   initialText? : string;
