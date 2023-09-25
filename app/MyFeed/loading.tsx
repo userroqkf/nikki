@@ -1,4 +1,7 @@
-export default function Loading() {
-  // You can add any UI inside Loading, including a Skeleton.
-  return <p>Loading My Feed....</p>
-}
+import LoadingSpinner from "@/_components/LoadingSpinner";
+
+export default async function Loading() {
+  return (
+    <LoadingSpinner/>
+  )
+} 
