@@ -46,8 +46,8 @@ export default function PostContainer({profilePictureURL, content, fullName, use
     <div className={styles.postContainer} ref={postContainerRef}>
       { !editing &&
         <button className={styles.buttonPosition}>
-          <FontAwesomeIcon className={styles.editButton} icon={faPenToSquare} onClick={() => setEditing(true)}/>
-          <FontAwesomeIcon className={styles.deleteButton} icon={faTrash} onClick={deletePost}/>
+          <FontAwesomeIcon className={styles.editButton} title={"editButton"} icon={faPenToSquare} onClick={() => setEditing(true)}/>
+          <FontAwesomeIcon className={styles.deleteButton} icon={faTrash} title={"deleteButton"} onClick={deletePost}/>
         </button> 
       }
       <div className={styles.profilePicturePosition}>
