@@ -14,8 +14,8 @@ const config = {
     '^@/components/(.*)$': '<rootDir>/app/_components/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
+  // moduleDirectories: ['node_modules', __dirname]
 }
-
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
 export default createJestConfig(config)
