@@ -1,6 +1,8 @@
+import { getFollowingPosts } from "lib/database/getFollowingPosts";
 import PostBox from "./PostBox";
 import PostContainer from "./PostContainer";
 import styles from "@/_styles/HomePageLayout.module.css"
+import { formatFollowingPosts } from "utils/helperFunctions";
 
 type postDataType = {
   profilePictureURL: string;
@@ -8,23 +10,26 @@ type postDataType = {
     text: string;
     datePosted: string;
     likeCount: number;
-    commentCount: number
+    commentCount: number;
+    liked: boolean;
   },
   fullName: string;
   username: string;
-  liked: boolean;
 }
 
-export default async function HomePageLayout({data}) {
-  const fetchedDataMock = data;
+type Props = {
+  posts: Array<postDataType>
+}
+
+export default async function HomePageLayout({posts} : Props) {
   return(
     <>
       <div className={styles.selectedPageName}>
         Home
       </div>
       <PostBox />
-      {fetchedDataMock.map((data: postDataType, index: number) => {
-        const { profilePictureURL, content, fullName, username, liked }= data;
+      {posts.map((data: postDataType, index: number) => {
+        const { profilePictureURL, content, fullName, username}= data;
         return (
           <PostContainer
             key={index}
@@ -32,7 +37,6 @@ export default async function HomePageLayout({data}) {
             content={content}
             fullName={fullName}
             username={username} 
-            liked={liked}
           />
         )
       })

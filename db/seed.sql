@@ -1,28 +1,29 @@
--- Insert sample data into the 'users' table
-INSERT INTO users (first_name, last_name, username, profile_picture)
-VALUES
-  ('John', 'Doe', 'johndoe', 'john_profile.jpg'),
-  ('Jane', 'Smith', 'janesmith', 'jane_profile.jpg'),
-  ('Alice', 'Johnson', 'alicej', 'alice_profile.jpg');
+-- Seed data for the users table
+INSERT INTO users (first_name, last_name, username, profile_picture) VALUES
+  ('John', 'Doe', 'johndoe', 'profile1.jpg'),
+  ('Alice', 'Smith', 'alicesmith', 'profile2.jpg'),
+  ('Bob', 'Johnson', 'bobjohnson', 'profile3.jpg');
 
--- Insert sample data into the 'posts' table
-INSERT INTO posts (text, image, date_created, owner_id)
-VALUES
-  ('This is John''s first post!', 'post_image1.jpg', '2023-09-27', 1),
-  ('A beautiful sunset!', 'post_image2.jpg', '2023-09-28', 2),
-  ('Hello, world!', NULL, '2023-09-29', 3);
+-- Seed data for the posts table
+INSERT INTO posts (text, image, date_created, owner_id) VALUES
+  ('Hello world!', 'post1.jpg', '2023-10-02', 1),
+  ('A beautiful sunset', 'post2.jpg', '2023-10-03', 2),
+  ('Coding is fun!', NULL, '2023-10-04', 3);
 
--- Insert sample data into the 'comments' table
-INSERT INTO comments (owner_id, post_id, date)
-VALUES
-  (1, 1, '2023-09-27'),
-  (2, 1, '2023-09-28'),
-  (3, 2, '2023-09-29');
+-- Seed data for the comments table
+INSERT INTO comments (owner_id, post_id, text, date) VALUES
+  (2, 1, 'Nice post!', '2023-10-02'),
+  (1, 2, 'Great shot!', '2023-10-03'),
+  (3, 1, 'I agree!', '2023-10-02');
 
--- Insert sample data into the 'follow' table
-INSERT INTO follow (follower, following)
-VALUES
+-- Seed data for the likes table
+INSERT INTO likes (owner_id, post_id, date) VALUES
+  (1, 1, '2023-10-02'),
+  (2, 1, '2023-10-02'),
+  (1, 2, '2023-10-03');
+
+-- Seed data for the follow table
+INSERT INTO follow (follower, following) VALUES
   (1, 2),
   (1, 3),
-  (2, 1),
-  (3, 2);
+  (2, 1);

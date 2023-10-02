@@ -20,13 +20,13 @@ type Props = {
     image?: string;
     commentCount: number;
     likeCount: number;
+    liked: boolean;
   }
   fullName: string;
   username: string;
-  liked: boolean;
 }
 
-export default function PostContainer({profilePictureURL, content, fullName, username, liked} : Props) {
+export default function PostContainer({profilePictureURL, content, fullName, username} : Props) {
   const contentTextRef = useRef<HTMLDivElement>(null);
   const postContainerRef = useRef<HTMLDivElement>(null);
 
@@ -67,7 +67,7 @@ export default function PostContainer({profilePictureURL, content, fullName, use
           {postContent.image && <Image src={postContent.image} width={100} height={100} alt="image"/>}
         </div>
         <div className={styles.contentFooter}>
-          <LikeButton liked={liked} likeCount={postContent.likeCount} />
+          <LikeButton liked={postContent.liked} likeCount={postContent.likeCount} />
           <CommentButton commentCount={postContent.commentCount} />
         </div>
       </div>
