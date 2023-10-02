@@ -1,0 +1,112 @@
+type postType = {
+  id: number;
+  text: string;
+  image: string;
+  date_created: string;
+  first_name: string;
+  last_name: string;
+  username: string;
+  profile_picture: string;
+  comments_count: string;
+  likes_count: string;
+}
+
+export function formatPostData(data: postType, liked: boolean) {
+  const {id, text, image, date_created, first_name, last_name, username, profile_picture, comments_count, likes_count } = data;
+  return (
+    {
+      profilePictureURL: "",
+      fullName: first_name + " " + last_name,
+      username: username,
+      content: {
+        datePosted: "",
+        text: text,
+        image: "",
+        commentCount: Number(comments_count),
+        likeCount: Number(likes_count),
+        liked: liked,
+      }
+    }
+  )
+}
+
+type followingListType  = {
+  profile_picture: string;
+  first_name: string;
+  last_name: string;
+  username: string;
+}
+
+type formattedFollowingListType = {
+    profilePictureURL: string;
+    fullName: string;
+    username: string;
+    following: boolean
+}
+
+export function formatFollowingLists(followingList: Array<followingListType>): Array<formattedFollowingListType> {
+  const res = followingList.map((following) => {
+    const {profile_picture, first_name, last_name, username} = following;
+    return (
+      {
+        profilePictureURL: "",
+        fullName: first_name + " " + last_name,
+        username,
+        following: true
+      }
+    )
+  })
+  return res
+}
+
+type followingPostType = {
+  follower: number;
+  following: number;
+  id: number;
+  first_name: string;
+  last_name: string;
+  username: string;
+  profile_picture: string;
+  text: string;
+  image: string;
+  date_created: string;
+  owner_id: number;
+  comments_count: string;
+  likes_count: string;
+  user_liked_post: true;
+}
+
+type formattedFollowingPostType = {
+  profilePictureURL: string;
+  fullName: string;
+  username: string;
+  content: {
+    text: string;
+    datePosted: string;
+    likeCount: number;
+    commentCount: number;
+    liked: boolean;
+  }
+}
+
+export function formatFollowingPosts(postsData: Array<followingPostType>): Array<formattedFollowingPostType> {
+  const res = postsData.map((post, index) => {
+    const {text, image, date_created, first_name, last_name, username, profile_picture, likes_count, comments_count, user_liked_post} = post
+    return (
+      {
+        profilePictureURL: "",
+        fullName: first_name + ' ' + last_name,
+        username: username,
+        content: {
+          text: text,
+          datePosted: "time ago test",
+          likeCount: Number(likes_count),
+          commentCount: Number(comments_count),
+          liked: user_liked_post,
+        },
+      }
+    )
+  });
+
+  return res
+}
