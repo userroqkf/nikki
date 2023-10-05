@@ -2,7 +2,7 @@ import pool from "db"
 
 export async function checkUserLikedPost(userId: string, postId: string) {
   if (typeof userId !== "number" || typeof postId !== "number") {
-    return 
+    Error("User or posst does not exist") 
   }
     const userLikedPostQuery = await pool.query(
       `SELECT EXISTS (

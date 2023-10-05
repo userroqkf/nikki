@@ -110,3 +110,75 @@ export function formatFollowingPosts(postsData: Array<followingPostType>): Array
 
   return res
 }
+
+type feedPostsType = {
+  id: number;
+  text: string;
+  image: string;
+  date_created: string;
+  first_name: string;
+  last_name: string;
+  username: string;
+  profile_picture: string;
+  comments_count: string;
+  likes_count: string;
+  user_liked_post: boolean;
+}
+
+
+type formattedFeedPostsType = {
+  profilePictureURL: string;
+  fullName: string;
+  username: string;
+  content: {
+    text: string;
+    image?: string;
+    datePosted: string;
+    likeCount: number;
+    commentCount: number;
+    liked: boolean;
+  }
+}
+export function formatFeedPosts(feedPosts: Array<feedPostsType>): Array<formattedFeedPostsType> {
+  console.log("feedposts clg",feedPosts);
+  const res = feedPosts.map((post, index) => {
+    const {text, image, date_created, first_name, last_name, username, profile_picture, likes_count, comments_count, user_liked_post} = post
+    return (
+      {
+        profilePictureURL: "",
+        fullName: first_name + ' ' + last_name,
+        username: username,
+        content: {
+          text: text,
+          image: "",
+          datePosted: "time ago test",
+          likeCount: Number(likes_count),
+          commentCount: Number(comments_count),
+          liked: user_liked_post,
+          }
+        }
+      )
+    });
+    return res
+  }
+
+  type feedUserDataType = {
+    id: number
+    first_name: string;
+    last_name: string;
+    username: string;
+    profile_picture: string;
+    background_image?: string;
+  }
+
+  export function formatFeedUserData(feedUserData: feedUserDataType) {
+    const {id, first_name, last_name, username, profile_picture, background_image} = feedUserData;
+    return (
+      {
+        profilePictureURL: "",
+        fullName: first_name + " " + last_name,
+        username: username,
+        background_image: ""
+      }
+    )
+  }
