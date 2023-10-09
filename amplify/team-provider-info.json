@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nikki-dev-101425-authRole",
+      "UnauthRoleArn": "arn:aws:iam::751704144524:role/amplify-nikki-dev-101425-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::751704144524:role/amplify-nikki-dev-101425-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-nikki-dev-101425-deployment",
+      "UnauthRoleName": "amplify-nikki-dev-101425-unauthRole",
+      "StackName": "amplify-nikki-dev-101425",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:751704144524:stack/amplify-nikki-dev-101425/e87fb4c0-6324-11ee-9919-06c582aaa8b4",
+      "AmplifyAppId": "d3arkdysbh79p3"
+    },
+    "categories": {
+      "auth": {
+        "nikkied26839d": {}
+      }
+    }
+  }
+}
