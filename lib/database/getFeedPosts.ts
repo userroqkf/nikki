@@ -1,4 +1,5 @@
 import pool from "db";
+import { getUserId } from "./getUserId";
 
 type feedPostsType = {
   id: number;
@@ -14,7 +15,10 @@ type feedPostsType = {
   user_liked_post: boolean;
 }
 
-export async function getFeedPosts(currUserId: number, FeedId: number): Promise<Array<feedPostsType>> {
+export async function getFeedPosts(currUser: string, feedUser: string): Promise<Array<feedPostsType>> {
+  const currUserId = await getUserId(currUser)
+  const feedUserId = await getUserId(feedUser)
+
   const feedPosts = await pool.query(`
   SELECT *,
   (SELECT COUNT(*) FROM comments WHERE comments.post_id = posts.id) AS comments_count,
@@ -28,7 +32,7 @@ export async function getFeedPosts(currUserId: number, FeedId: number): Promise<
   FROM users
   JOIN posts ON users.id = posts.owner_id
   WHERE users.id = $2
-  `, [currUserId, FeedId])
+  `, [currUserId.id, feedUserId.id])
 
   return feedPosts.rows
 }

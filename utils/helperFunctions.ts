@@ -182,3 +182,30 @@ export function formatFeedPosts(feedPosts: Array<feedPostsType>): Array<formatte
       }
     )
   }
+
+  export async function uploadIamge(selectedFile: File) {
+    const formData = new FormData();
+    if(selectedFile) {
+      formData.append('file', selectedFile);
+    }
+    const imageId = await fetch('api/upload', {method: 'POST', body: formData})
+    return imageId
+    
+  }
+  
+  const validatePost = (input: string): boolean => {
+    if (input.length === 0 && input.trim().length === 0) {
+      Error("Please input valid string")
+      return false
+    }
+    return input.length !== 0
+  }
+
+  export function formatBody(userId: string, text: string, imageId: string) {
+    const body = new FormData()
+    body.append('userId', userId.toString())
+    body.append('text', text.toString())
+    body.append('text', imageId.toString())
+    console.log(formatBody);
+    return body
+  }

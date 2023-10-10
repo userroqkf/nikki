@@ -1,11 +1,12 @@
 import pool from "db";
 
-export async function getUserData(userId: number) {
+export async function getUserData(username: string) {
+  
   const userData = await pool.query(`
     SELECT *
     FROM users
-    WHERE id = $1
-  `, [userId])
+    WHERE username = $1
+  `, [username])
 
   return userData.rows[0]
 }
