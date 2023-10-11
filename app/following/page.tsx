@@ -4,7 +4,7 @@ import { formatFollowingLists } from "utils/helperFunctions"
 
 export default async function Following() {
   const data = await getFollowingLists("2");
-  const followingLists = formatFollowingLists(data)
+  const followingLists = await formatFollowingLists(data)
 
   return (
     <FollowingLayout data={followingLists} />

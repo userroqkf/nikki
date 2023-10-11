@@ -2,29 +2,35 @@ import { getFeedPosts } from "lib/database/getFeedPosts";
 import HomePageProfile from "../../_components/HomePageProfile"
 import PostContainer from "../../_components/PostContainer";
 import { checkUserExists } from "lib/database/checkUserExists";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getUserData } from "lib/database/getUserData";
 import { formatFeedPosts, formatFeedUserData } from "utils/helperFunctions";
 
 
 export default async function userPage({ params }: { params: { username: string } }) {
-  const userId = params.username
-  const userExists = await checkUserExists(userId)
+  const username = params.username
+  console.log(username);
+  const userExists = await checkUserExists(username)
+  console.log('user check', userExists);
 
   if (!Number(userExists)) {
     notFound()
   }
 
-  const feedPosts = await getFeedPosts(1, userId)
-  const formattedFeedPosts = formatFeedPosts(feedPosts)
-  const userData = await getUserData(userId)
-  const formattedFeedUserData = formatFeedUserData(userData)
+  // if (currUser === username) {
+  //   // redirect()
+  // }
+
+  const feedPosts = await getFeedPosts("johndoe", username)
+  const formattedFeedPosts = await formatFeedPosts(feedPosts)
+  const userData = await getUserData(username)
+  const formattedFeedUserData = await formatFeedUserData(userData)
 
   return (
     <div>
       <HomePageProfile 
-        profilePictureURL={"https://picsum.photos/id/237/300/300"}
-        backgroundImageURL={"https://picsum.photos/seed/picsum/2000/3000"}
+        profilePictureURL={formattedFeedUserData.profilePictureURL}
+        backgroundImageURL={formattedFeedUserData.backgroundImageURL}
         fullName={formattedFeedUserData.fullName}
         username={formattedFeedUserData.username}
         followingCount={183}

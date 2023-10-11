@@ -19,6 +19,7 @@ export async function getFeedPosts(currUser: string, feedUser: string): Promise<
   const currUserId = await getUserId(currUser)
   const feedUserId = await getUserId(feedUser)
 
+  console.log("printed value",currUser, feedUser, currUserId, feedUserId);
   const feedPosts = await pool.query(`
   SELECT *,
   (SELECT COUNT(*) FROM comments WHERE comments.post_id = posts.id) AS comments_count,

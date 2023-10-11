@@ -17,12 +17,6 @@ const client = new S3Client({
   },
 });
 
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
-
 export async function POST(request: NextResponse, response: NextResponse) {
     const request_data = await request.formData();
     const file = request_data.get("file") as Blob | null;
@@ -51,12 +45,33 @@ export async function POST(request: NextResponse, response: NextResponse) {
 }
 
 export async function GET(req: NextResponse, res: NextResponse) {
-  const { searchParams } = new URL(req.url)
-  const id = searchParams.get('id')
-  const command = new GetObjectCommand({
-    Bucket: s3BucketName,
-    Key: id as string,
-  });
-  const src = await getSignedUrl(client, command, { expiresIn: 3600 });
-  return NextResponse.json({src})
+    try {
+      console.log("get route upload");
+      console.log("get route upload2", req);
+  
+      // Attempt to parse the URL from req.url
+      const { searchParams } = new URL(req.url);
+      const id = searchParams.get('id');
+      const command = new GetObjectCommand({
+        Bucket: s3BucketName,
+        Key: id as string,
+      });
+      const src = await getSignedUrl(client, command, { expiresIn: 3600 });
+  
+      // If everything is successful, return the response
+      return NextResponse.json(src);
+    } catch (error) {
+      // If an error occurs, handle it here
+      console.log("omething here")
+      console.error("Error:", error);
+  
+      // You can return an error response or perform other error-handling logic.
+      return NextResponse.json("An error occurred while processing your request.");
+    }
   }
+
+// export const config = {
+//   api: {
+//       bodyParser: false,
+//   },
+// };

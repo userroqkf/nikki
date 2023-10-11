@@ -1,8 +1,9 @@
-import { getFollowingPosts } from "lib/database/getFollowingPosts";
+"use client"
 import PostBox from "./PostBox";
 import PostContainer from "./PostContainer";
 import styles from "@/_styles/HomePageLayout.module.css"
 import { formatFollowingPosts } from "utils/helperFunctions";
+import { useEffect, useState } from "react";
 
 type postDataType = {
   profilePictureURL: string;
@@ -21,14 +22,22 @@ type Props = {
   posts: Array<postDataType>
 }
 
-export default async function HomePageLayout({posts} : Props) {
+export default function HomePageLayout({posts} : Props) {
+  const [postsState, setPostsState] = useState<Array<postDataType>>(posts)
+
+
+  useEffect(() => {
+    console.log(postsState);
+  }, [postsState])
+
+
   return(
     <>
       <div className={styles.selectedPageName}>
         Home
       </div>
-      <PostBox />
-      {posts.map((data: postDataType, index: number) => {
+      <PostBox setPostsState={setPostsState}/>
+      {postsState.map((data: postDataType, index: number) => {
         const { profilePictureURL, content, fullName, username}= data;
         return (
           <PostContainer

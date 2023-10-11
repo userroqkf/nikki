@@ -1,3 +1,7 @@
+import { formatDistanceToNow, fromUnixTime, parseISO } from 'date-fns'
+import { getUserById } from 'lib/database/getUserById';
+import { getUserData } from 'lib/database/getUserData';
+
 type postType = {
   id: number;
   text: string;
@@ -44,18 +48,19 @@ type formattedFollowingListType = {
     following: boolean
 }
 
-export function formatFollowingLists(followingList: Array<followingListType>): Array<formattedFollowingListType> {
-  const res = followingList.map((following) => {
+export async function formatFollowingLists(followingList: Array<followingListType>): Array<formattedFollowingListType> {
+  const res = await Promise.all(followingList.map( async (following) => {
     const {profile_picture, first_name, last_name, username} = following;
+    const profilePicture = await getImageURL(profile_picture, process.env.BASE_URL);
     return (
       {
-        profilePictureURL: "",
+        profilePictureURL: profilePicture,
         fullName: first_name + " " + last_name,
         username,
         following: true
       }
     )
-  })
+  }))
   return res
 }
 
@@ -139,28 +144,32 @@ type formattedFeedPostsType = {
     liked: boolean;
   }
 }
-export function formatFeedPosts(feedPosts: Array<feedPostsType>): Array<formattedFeedPostsType> {
-  console.log("feedposts clg",feedPosts);
-  const res = feedPosts.map((post, index) => {
-    const {text, image, date_created, first_name, last_name, username, profile_picture, likes_count, comments_count, user_liked_post} = post
-    return (
-      {
-        profilePictureURL: "",
-        fullName: first_name + ' ' + last_name,
-        username: username,
-        content: {
-          text: text,
-          image: "",
-          datePosted: "time ago test",
-          likeCount: Number(likes_count),
-          commentCount: Number(comments_count),
-          liked: user_liked_post,
-          }
-        }
-      )
-    });
-    return res
-  }
+export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<Array<formattedFeedPostsType>> {
+  const formattedPosts = await Promise.all(feedPosts.map(async (post) => {
+    const { text, image, date_created, first_name, last_name, username, profile_picture, likes_count, comments_count, user_liked_post } = post;
+    
+    const profilePicture = await getImageURL(profile_picture, process.env.BASE_URL);
+    const dateCreated = formatDateFromNow(new Date(date_created));
+    const postImage = image ? await getImageURL(image, process.env.BASE_URL) : '';
+    
+    return {
+      profilePictureURL: profilePicture,
+      fullName: `${first_name} ${last_name}`,
+      username,
+      content: {
+        text,
+        ...(image ? { image: postImage } : {}),
+        datePosted: dateCreated,
+        likeCount: Number(likes_count),
+        commentCount: Number(comments_count),
+        liked: user_liked_post,
+      },
+    };
+  }));
+  
+  return formattedPosts;
+}
+
 
   type feedUserDataType = {
     id: number
@@ -168,19 +177,32 @@ export function formatFeedPosts(feedPosts: Array<feedPostsType>): Array<formatte
     last_name: string;
     username: string;
     profile_picture: string;
-    background_image?: string;
+    background_picture: string;
   }
 
-  export function formatFeedUserData(feedUserData: feedUserDataType) {
-    const {id, first_name, last_name, username, profile_picture, background_image} = feedUserData;
-    return (
+  export async function getImageURL(id: string, baseURL?: string) {
+
+    const imageResponse = await fetch(`${baseURL}api/upload?` + new URLSearchParams({id}), {method:"GET"})
+    
+    const imageURL = await imageResponse.json()
+    return imageURL
+  }
+
+  export async function formatFeedUserData(feedUserData: feedUserDataType) {
+    const {id, first_name, last_name, username, profile_picture, background_picture} = feedUserData;
+    
+    const profilePicture = await getImageURL(profile_picture, process.env.BASE_URL)
+    const backgroundImage = await getImageURL(background_picture, process.env.BASE_URL)
+
+    const res = (
       {
-        profilePictureURL: "",
+        profilePictureURL: profilePicture,
         fullName: first_name + " " + last_name,
         username: username,
-        background_image: ""
+        backgroundImageURL: backgroundImage
       }
     )
+    return res
   }
 
   export async function uploadIamge(selectedFile: File) {
@@ -189,7 +211,7 @@ export function formatFeedPosts(feedPosts: Array<feedPostsType>): Array<formatte
       formData.append('file', selectedFile);
     }
     const imageId = await fetch('api/upload', {method: 'POST', body: formData})
-    return imageId
+    return imageId.json()
     
   }
   
@@ -208,4 +230,32 @@ export function formatFeedPosts(feedPosts: Array<feedPostsType>): Array<formatte
     body.append('text', imageId.toString())
     console.log(formatBody);
     return body
+  }
+  export function formatDateFromNow(date: Date) {
+    console.log("formated date console log",date, formatDistanceToNow(date));
+    return formatDistanceToNow(date)
+  }
+
+
+  export async function formaNewtPostData(postData, userData) {
+    const {date_created, id, image, owner_id, text} = postData;
+    const {first_name, last_name, username, profile_picture} = userData;
+    const dateCreatd = formatDateFromNow(date_created)
+    const imageURL = await getImageURL(image)
+
+    const res = {
+      profilePictureURL: "",
+      content: {
+        text: text,
+        datePosted: dateCreatd,
+        image: imageURL,
+        likeCount: 0,
+        commentCount: 0,
+        liked: false
+      },
+      fullName: first_name + " " + last_name,
+      username: username
+    }
+
+    return res
   }

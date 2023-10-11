@@ -5,15 +5,17 @@ import { SetStateAction, Dispatch,  forwardRef, useRef, useEffect} from "react";
 
 type Props = {
   setShowImage: Dispatch<SetStateAction<string>>;
+  setSelectedFile?: Dispatch<SetStateAction<File | null>>;
   context: string;
 }
 
-const UploadFileButton = forwardRef(function({setShowImage, context}: Props, ref: React.ForwardedRef<HTMLInputElement>) {
+const UploadFileButton = forwardRef(function({setShowImage, setSelectedFile, context}: Props, ref: React.ForwardedRef<HTMLInputElement>) {
 
   const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.files) {
       const objectUrl = URL.createObjectURL(e.target.files[0])
+      setSelectedFile && setSelectedFile(e.target.files[0])
       e.target.value = ""
       setShowImage(objectUrl)
     }

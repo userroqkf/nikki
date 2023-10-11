@@ -41,7 +41,6 @@ export default function PostContainer({profilePictureURL, content, fullName, use
     console.log("delete obj");
   }
 
-
   return (
     <div className={styles.postContainer} ref={postContainerRef}>
       { !editing &&
@@ -64,7 +63,7 @@ export default function PostContainer({profilePictureURL, content, fullName, use
           <div ref={contentTextRef}>
             {postContent.text}
           </div>
-          {postContent.image && <Image src={postContent.image} width={100} height={100} alt="image"/>}
+          {postContent.image && <Image src={postContent.image} width={500} height={500} alt="image"/>}
         </div>
         <div className={styles.contentFooter}>
           <LikeButton liked={postContent.liked} likeCount={postContent.likeCount} />
@@ -73,7 +72,7 @@ export default function PostContainer({profilePictureURL, content, fullName, use
       </div>
       }
       {editing && 
-        <EditingBox setEditing={setEditing} initialText={postContent.text} initialImage={postContent.image}/>
+        <EditingBox initialText={postContent.text} initialImage={postContent.image} setPostContent={setPostContent} setEditing={setEditing}/>
       }
     </div>
   ) 
