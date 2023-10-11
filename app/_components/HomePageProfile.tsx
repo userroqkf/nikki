@@ -15,9 +15,10 @@ type Props = {
   followingCount: number;
   followerCount: number;
   following: boolean;
+  myFeed?: boolean;
 }
 
-export default function HomePageProfile({profilePictureURL, backgroundImageURL, fullName, username, followingCount, followerCount, following}: Props) {
+export default function HomePageProfile({myFeed, profilePictureURL, backgroundImageURL, fullName, username, followingCount, followerCount, following}: Props) {
   const [follow, setFollow] = useState<boolean>(following)
   const [profilePicture, setProfilePicture] = useState<string>(profilePictureURL)
   const [backgroundImage, setBackgroundImage] = useState<string>(backgroundImageURL)
@@ -29,16 +30,28 @@ export default function HomePageProfile({profilePictureURL, backgroundImageURL, 
       for now we just want to change image
       OnClick change background image, onClick change profile picture overlay on hover 
       */}
-      <Overlay context={"backgroundImage"} setBackgroundImage={setBackgroundImage}>
+      {
+        !myFeed &&
         <Image src={backgroundImage} alt="profile-backgorund-image" width={598} height={200}/>
-      </Overlay>
-      <div className={styles.profilePicturePos}>
-        <Overlay context={"profilePicture"} setProfilePicture={setProfilePicture}>
-          <ProfilePicture profilePictureURL={profilePicture} border={4} height={136} width={136}/>
+      }
+      {myFeed &&
+        <Overlay context={"backgroundImage"} setBackgroundImage={setBackgroundImage}>
+          <Image src={backgroundImage} alt="profile-backgorund-image" width={598} height={200}/>
         </Overlay>
+      }
+      <div className={styles.profilePicturePos}>
+      {
+        !myFeed &&
+        <ProfilePicture profilePictureURL={profilePicture} border={4} height={136} width={136}/>
+      }
+        {myFeed &&
+          <Overlay context={"profilePicture"} setProfilePicture={setProfilePicture}>
+            <ProfilePicture profilePictureURL={profilePicture} border={4} height={136} width={136}/>
+          </Overlay>
+        }
       </div>
       {/* If user is the same as currently logged in user then hide else show */}
-      {
+      {!myFeed && 
         <div className={styles.followButtonPos}
         onClick={() => {
           setFollow(!follow)
