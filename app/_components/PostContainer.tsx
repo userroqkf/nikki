@@ -2,7 +2,7 @@
 
 import ProfilePicture from "./ProfilePicture";
 import styles from "@/_styles/PostContainer.module.css"
-import { useRef, useState} from "react";
+import { useEffect, useRef, useState} from "react";
 import LikeButton from "./LikeButton";
 import CommentButton from "./CommentButton";
 import EditingBox from "./EditingBox";
@@ -13,6 +13,8 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
+  key: number;
+  postId: number;
   profilePictureURL: string;
   content: {
     datePosted: string;
@@ -26,12 +28,17 @@ type Props = {
   username: string;
 }
 
-export default function PostContainer({profilePictureURL, content, fullName, username} : Props) {
+export default function PostContainer({postId, profilePictureURL, content, fullName, username} : Props) {
   const contentTextRef = useRef<HTMLDivElement>(null);
   const postContainerRef = useRef<HTMLDivElement>(null);
 
   // used for updating post when confirmed
   const [postContent, setPostContent] = useState(content);
+  // console.log("testing postcontent data", postContent, postContent.image);
+
+  useEffect(() => {
+    console.log("check postContent", postContent);
+  }, [postContent])
 
   const [editing, setEditing] = useState<boolean>(false)
 
@@ -72,7 +79,7 @@ export default function PostContainer({profilePictureURL, content, fullName, use
       </div>
       }
       {editing && 
-        <EditingBox initialText={postContent.text} initialImage={postContent.image} setPostContent={setPostContent} setEditing={setEditing}/>
+        <EditingBox postId={postId} initialText={postContent.text} initialImage={postContent.image} setPostContent={setPostContent} setEditing={setEditing}/>
       }
     </div>
   ) 

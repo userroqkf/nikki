@@ -28,7 +28,7 @@ export async function POST(request: NextResponse, response: NextResponse) {
       );
     }
     //create unique key for object and send that key as a response to client
-    const id = 'something.png'
+    const id = crypto.randomUUID();
     const buffer = Buffer.from(await file.arrayBuffer());
     const command = new PutObjectCommand({
       Bucket: s3BucketName,

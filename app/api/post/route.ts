@@ -20,3 +20,21 @@ export async function POST(req: Request, res: NextApiResponse) {
     return NextResponse.json({message: `there is an ${err}`})
   }
 }
+
+export async function PUT(req: Request, res: NextApiResponse) {
+  const {postId, imageURL, editedText} = await req.json();
+  console.log("postId",postId, "imageURL", imageURL, "editedText",editedText);
+  try {
+    const modifyData = await pool.query(
+      `UPDATE posts
+        SET text = $1,
+            image = $2
+        WHERE id = $3
+        RETURNING *`
+    , [editedText, imageURL, postId])
+    return NextResponse.json(modifyData.rows[0])
+  } catch(err) {
+    console.log(err);
+    return NextResponse.json({message: `there is an ${err}`})
+  }
+}

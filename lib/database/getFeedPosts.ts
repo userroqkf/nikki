@@ -33,6 +33,7 @@ export async function getFeedPosts(currUser: string, feedUser: string): Promise<
   FROM users
   JOIN posts ON users.id = posts.owner_id
   WHERE users.id = $2
+  ORDER BY posts.date_created DESC
   `, [currUserId.id, feedUserId.id])
 
   return feedPosts.rows
