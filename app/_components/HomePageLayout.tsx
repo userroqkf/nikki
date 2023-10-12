@@ -6,6 +6,7 @@ import { formatFollowingPosts } from "utils/helperFunctions";
 import { useEffect, useState } from "react";
 
 type postDataType = {
+  postId: number
   profilePictureURL: string;
   content: {
     text: string;
@@ -27,8 +28,8 @@ export default function HomePageLayout({posts} : Props) {
 
 
   useEffect(() => {
-    console.log(postsState);
-  }, [postsState])
+    console.log("post state useEffect",postsState);
+  }, [,postsState])
 
 
   return(
@@ -38,10 +39,11 @@ export default function HomePageLayout({posts} : Props) {
       </div>
       <PostBox setPostsState={setPostsState}/>
       {postsState.map((data: postDataType, index: number) => {
-        const { profilePictureURL, content, fullName, username}= data;
+        const { postId, profilePictureURL, content, fullName, username}= data;
         return (
           <PostContainer
-            key={index}
+            key={postId}
+            postId={postId}
             profilePictureURL={profilePictureURL}
             content={content}
             fullName={fullName}

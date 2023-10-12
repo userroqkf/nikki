@@ -32,7 +32,8 @@ export async function getFollowingPosts(userId: string): Promise<Array<following
     FROM follow
     JOIN users ON follow.following = users.id
     JOIN posts ON follow.following = posts.owner_id
-    WHERE follow.follower = $1 OR posts.owner_id = $1;
+    WHERE follow.follower = $1 OR posts.owner_id = $1
+    ORDER BY posts.date_created DESC;
     `, [userId]
     )
   

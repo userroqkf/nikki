@@ -63,19 +63,20 @@ export default function PostBox({ setPostsState } : Props) {
         imageId,
         postText,
       })
+
       const savedPostDataResponse = await fetch('/api/post', {method: 'POST', body: body})
       const userDataResponse = await fetch('api/user/?' + new URLSearchParams({id: userId .toString()}), {method:'GET'})
       const userData = await userDataResponse.json();
       const postData = await savedPostDataResponse.json();
-      console.log("post data",postData);
-      // prepend to posts state
       const formattedPostData = await formaNewtPostData(postData,userData)
 
       setShowImage("")
       setSelectedFile(null)
       setPostText("")
       setImageHeight(0)
-      setPostsState(prev => [...prev, formattedPostData])
+      //FIXME: not preprending 
+      setPostsState((prev) => [formattedPostData, ...prev])
+
     } catch(err) {
 
     }

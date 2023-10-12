@@ -19,7 +19,7 @@ export default function ListItem({icon, focusIcon, label, link}: Props) {
   
   return (
     // <div className={styles.list_item_box} onClick={() => router.push(`/${link}`) }>
-    <Link href={`/${link}`} className={styles.link}>
+    <Link href={`/${link}`} className={styles.link} replace>
       <div className={styles.list_item_box} >
         <div className={styles.icon_container}>
           {link === validRouteString ? focusIcon : icon}

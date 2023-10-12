@@ -17,7 +17,7 @@ const nextConfig = {
             pathname: '/**',
           },
         ],
-        domains: ['nikkihostedcontent.s3.ap-southeast-1.amazonaws.com'],
+        domains: ['nikkihostedcontent.s3.ap-southeast-1.amazonaws.com', "d1su0spwyw95eu.cloudfront.net"],
       },
 }
 
