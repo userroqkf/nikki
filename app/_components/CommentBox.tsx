@@ -3,11 +3,13 @@ import ProfilePicture from "./ProfilePicture"
 import Button from "./Button"
 import styles from "@/_styles/CommentBox.module.css"
 import CommentInput from "./CommmentInput";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import { CurrUserContext } from "@/_components/CurrUserContext"
 
 type Props = {
   profilePictureURL: string;
 }
+
 export default function CommentBox({profilePictureURL}: Props) {
   const DefaultPostBoxPadding = 100;
   const [boxHeight, setBoxHeight] = useState<number>(DefaultPostBoxPadding);

@@ -1,24 +1,42 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCamera } from "@fortawesome/free-solid-svg-icons"
 import styles from "@/_styles/Overlay.module.css"
-import { Dispatch, ReactNode, SetStateAction } from "react"
+import { Dispatch, ReactNode, SetStateAction, useState } from "react"
+import { getImageURL, uploadImage } from "utils/helperFunctions"
+import { useRouter } from "next/navigation"
+import Loading from "@/loading"
+import LoadingSpinnerDynamic from "./LoadingSpinnerDynamic"
 
 type Props = {
   children: ReactNode
   setBackgroundImage?: Dispatch<SetStateAction<string>>;
   setProfilePicture?: Dispatch<SetStateAction<string>>;
   context: string;
+  username: string;
 }
 
-export default function Overlay({children, setProfilePicture, setBackgroundImage, context}: Props) {
+export default function Overlay({children, setProfilePicture, setBackgroundImage, context, username}: Props) {
+  const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    setLoading(true)
     if (e.target.files && e.target.files.length !== 0) {
-      const objectUrl = URL.createObjectURL(e.target.files[0])
-      setProfilePicture && setProfilePicture(objectUrl)
-      setBackgroundImage && setBackgroundImage(objectUrl)
+      const imageURLResponse = await uploadImage(e.target.files[0])
+      const imageURL =  getImageURL(imageURLResponse.id) as string
+
+      if (setProfilePicture) {
+        await fetch('api/user', {method: "PUT", body: JSON.stringify({username, profilePictureURL: imageURLResponse.id})})
+        setProfilePicture(imageURL)
+      }
+
+      if (setBackgroundImage) {
+        await fetch('api/user', {method: "PUT", body: JSON.stringify({username, backgroundImageURL: imageURLResponse.id})})
+        setBackgroundImage(imageURL)
+          }
     }
+    setLoading(false)
   };
 
   return (
@@ -26,12 +44,12 @@ export default function Overlay({children, setProfilePicture, setBackgroundImage
       <div className={styles.backgroundImage}>
         {children}
       </div>
-      <div className={styles.backgroundChangeImageButton}>
+      {!loading && <div className={styles.backgroundChangeImageButton}>
         <label htmlFor={context}>
         <FontAwesomeIcon icon={faCamera} />
         </label>
         <input id={context} type="file" accept="image/png, image/jpeg" onChange={onSelectFile}/>
-      </div>
+      </div>}
     </div>
   )
 }

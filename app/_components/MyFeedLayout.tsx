@@ -1,7 +1,10 @@
+"use client"
+import { useState } from "react";
 import HomePageProfile from "./HomePageProfile";
 import PostContainer from "./PostContainer";
 
 type feedPostsType = {
+  postId: number;
   profilePictureURL: string;
   content: {
     text: string;
@@ -19,6 +22,8 @@ type feedUserDataType = {
   fullName: string;
   username: string;
   backgroundImageURL: string;
+  followingCount: number;
+  followerCount: number;
 }
 
 type Props =  {
@@ -27,27 +32,31 @@ type Props =  {
 }
 
 export default function MyFeedLayout({feedPosts, userData}: Props) {
+  const [postsState, setPostsState] = useState<Array<feedPostsType>>(feedPosts)
   return(
     <>
+    {/* TODO: update follwing and follower count */}
       <HomePageProfile 
         profilePictureURL={userData.profilePictureURL}
         backgroundImageURL={userData.backgroundImageURL}
         fullName={userData.fullName}
         username={userData.username}
-        followingCount={183}
-        followerCount={78}
+        followingCount={userData.followingCount}
+        followerCount={userData.followerCount}
         following={true}
         myFeed={true}
       />
-      {feedPosts.map((post: feedPostsType, index: number) => {
-        const { profilePictureURL, content, fullName, username }= post;
+      {postsState.map((post: feedPostsType, index: number) => {
+        const { profilePictureURL, content, fullName, username, postId }= post;
         return (
           <PostContainer
             key={index}
+            postId={postId}
             profilePictureURL={profilePictureURL}
             content={content}
             fullName={fullName}
             username={username} 
+            setPostsState={setPostsState}
           />
         )
       })

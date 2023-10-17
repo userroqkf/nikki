@@ -48,6 +48,7 @@ export default function HomePageLayout({posts} : Props) {
             content={content}
             fullName={fullName}
             username={username} 
+            setPostsState={setPostsState}
           />
         )
       })

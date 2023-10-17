@@ -1,17 +1,17 @@
 "use client"
 
-import { useEffect, useState, useRef, Dispatch} from "react";
+import { useEffect, useState, useRef, Dispatch,SetStateAction} from "react";
 import styles from "@/_styles/Postbox.module.css";
 import Button from "./Button";
 import PostIput from "./PostInput";
 import ProfilePicture from "./ProfilePicture";
 import UploadFileButton from "./UploadFileButton";
 import ImagePreview from "./ImagePreview";
-import { formaNewtPostData, formatBody, uploadIamge } from "utils/helperFunctions";
-import { getUserData } from "lib/database/getUserData";
+import { formaNewtPostData, formatBody, uploadImage} from "utils/helperFunctions";
 
 
 type postDataType = {
+  postId: number,
   profilePictureURL: string;
   content: {
     text: string;
@@ -25,7 +25,7 @@ type postDataType = {
 }
 
 type Props = {
-  setPostsState: Dispatch<React.SetStateAction<Array<postDataType>>>;
+  setPostsState: Dispatch<SetStateAction<Array<postDataType>>>;
 }
 
 export default function PostBox({ setPostsState } : Props) {
@@ -45,6 +45,7 @@ export default function PostBox({ setPostsState } : Props) {
     }
   }, [boxHeight, imageHeight])
 
+  //TODO: get profilepicture url from current user 
   const profilePictureURL = "https://picsum.photos/id/237/200/300";
 
   const  handleFormSubmit = async (e: Event) => {
@@ -54,7 +55,7 @@ export default function PostBox({ setPostsState } : Props) {
 
     try {
       if (selectedFile) {
-        const imageIdJSON = await uploadIamge(selectedFile)
+        const imageIdJSON = await uploadImage(selectedFile)
         imageId = imageIdJSON.id
       }
       // client should receive image key which then they can send to rds to save the post data

@@ -17,15 +17,12 @@ export default async function userPage({ params }: { params: { username: string 
     notFound()
   }
 
-  // if (currUser === username) {
-  //   // redirect()
-  // }
-
   const feedPosts = await getFeedPosts("johndoe", username)
   const formattedFeedPosts = await formatFeedPosts(feedPosts)
   const userData = await getUserData(username)
   const formattedFeedUserData = await formatFeedUserData(userData)
-
+  
+  // TODO: fix following to check if curr logged in user is following
   return (
     <div>
       <HomePageProfile 
@@ -33,15 +30,16 @@ export default async function userPage({ params }: { params: { username: string 
         backgroundImageURL={formattedFeedUserData.backgroundImageURL}
         fullName={formattedFeedUserData.fullName}
         username={formattedFeedUserData.username}
-        followingCount={183}
-        followerCount={78}
+        followingCount={formattedFeedUserData.followingCount}
+        followerCount={formattedFeedUserData.followerCount}
         following={true}
       />
       {formattedFeedPosts.map((data, index: number) => {
-        const { profilePictureURL, content, fullName, username }= data;
+        const { profilePictureURL, content, fullName, username, postId } = data;
         return (
           <PostContainer
-            key={index}
+            key={postId}
+            postId={postId}
             profilePictureURL={profilePictureURL}
             content={content}
             fullName={fullName}

@@ -36,22 +36,25 @@ export default async function PostPage({ params }: { params: { postId: string } 
   const [post, comments, liked] = await Promise.all([postData, postComments, userLiked])
 
   const postFormatted = formatPostData(post, liked)
-  
+  console.log("post", postFormatted);
   return (
     <div>
       <div className={styles.selectedPageName}>
         Post
       </div>
-      <PostContainer 
+      <PostContainer
+        postId={postFormatted.postId}
         profilePictureURL={postFormatted.profilePictureURL}
         content={postFormatted.content}
         fullName={postFormatted.fullName}
         username={postFormatted.username}
+        redirectHome={true}
       />
       <div className={styles.pageName}>
         Post Comment
       </div>
-      <CommentBox profilePictureURL={"https://picsum.photos/id/237/200/300"} />
+      {/*TODO: if user is logged in show commentbox  */}
+      {<CommentBox profilePictureURL={"https://picsum.photos/id/237/200/300"} />}
       <div className={styles.pageName}>
         Comments
       </div>

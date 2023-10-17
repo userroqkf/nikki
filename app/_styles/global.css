@@ -5,3 +5,8 @@
     font-family: 'Josefin Sans', sans-serif;
 }
 
+/* remove all styles for Nextjs Link Tag */
+a {
+    text-decoration: none;
+    color: inherit;
+}

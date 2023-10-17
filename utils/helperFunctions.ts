@@ -1,9 +1,7 @@
 import { formatDistanceToNow, fromUnixTime, parseISO } from 'date-fns'
-import { getUserById } from 'lib/database/getUserById';
-import { getUserData } from 'lib/database/getUserData';
 
 type postType = {
-  id: number;
+  postid: number;
   text: string;
   image: string;
   date_created: string;
@@ -16,16 +14,20 @@ type postType = {
 }
 
 export function formatPostData(data: postType, liked: boolean) {
-  const {id, text, image, date_created, first_name, last_name, username, profile_picture, comments_count, likes_count } = data;
+  console.log("format",data);
+  const {postid, text, image, date_created, first_name, last_name, username, profile_picture, comments_count, likes_count } = data;
+  const postImageURL = getImageURL(image);
+  const profilePictureURL = getImageURL(profile_picture);
   return (
     {
-      profilePictureURL: "",
+      postId: postid,
+      profilePictureURL: profilePictureURL as string,
       fullName: first_name + " " + last_name,
       username: username,
       content: {
-        datePosted: "",
+        datePosted: formatDateFromNow(new Date(date_created)),
         text: text,
-        image: "",
+        image: postImageURL as string,
         commentCount: Number(comments_count),
         likeCount: Number(likes_count),
         liked: liked,
@@ -155,7 +157,7 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
     
     return {
       postId: id,
-      profilePictureURL: profilePicture,
+      profilePictureURL: profilePicture as string,
       fullName: first_name + ' ' + last_name,
       username,
       content: {
@@ -180,13 +182,13 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
     username: string;
     profile_picture: string;
     background_picture: string;
+    following_count: string;
+    follower_count: string;
   }
 
-  export async function getImageURL(id: string, baseURL?: string) {
+  export function getImageURL(id: string, baseURL?: string) {
     try {
       if (id) {
-      // const imageResponse = await fetch(`${baseURL}api/upload?` + new URLSearchParams({id}), {method:"GET"})
-      // const imageURL = await imageResponse.json() 
       return "https://d1su0spwyw95eu.cloudfront.net/" + `${id}`
       }
       return ""
@@ -197,7 +199,7 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
 
 
   export async function formatFeedUserData(feedUserData: feedUserDataType) {
-    const {id, first_name, last_name, username, profile_picture, background_picture} = feedUserData;
+    const {id, first_name, last_name, username, profile_picture, background_picture, follower_count, following_count} = feedUserData;
     
     const profilePicture = await getImageURL(profile_picture, process.env.BASE_URL)
     const backgroundImage = await getImageURL(background_picture, process.env.BASE_URL)
@@ -207,13 +209,15 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
         profilePictureURL: profilePicture as string,
         fullName: first_name + " " + last_name,
         username: username,
-        backgroundImageURL: backgroundImage as string
+        backgroundImageURL: backgroundImage as string,
+        followerCount: parseInt(follower_count),
+        followingCount: parseInt(following_count)
       }
     )
     return res
   }
 
-  export async function uploadIamge(selectedFile: File) {
+  export async function uploadImage(selectedFile: File) {
     const formData = new FormData();
     if(selectedFile) {
       formData.append('file', selectedFile);
@@ -253,7 +257,7 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
     const profilePictureURL = await getImageURL(profile_picture)
 
     const res = {
-      key: id,
+      postId: id,
       profilePictureURL: profilePictureURL as string,
       content: {
         text: text,
@@ -268,4 +272,10 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
     }
 
     return res
+  }
+
+  export async function deletePost(postId: number) {
+    const url = `http://localhost:3000/api/post`;
+    await fetch(url,{method: 'DELETE', body: JSON.stringify({postId})})
+    
   }
