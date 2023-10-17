@@ -11,7 +11,7 @@ type followingPostType = {
   text: string;
   image: string;
   date_created: string;
-  owner_id: number;
+  owner_id: string;
   comments_count: string;
   likes_count: string;
   user_liked_post: true;

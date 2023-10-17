@@ -1,8 +1,7 @@
 import pool from "db"
 
 export async function checkPostExists(postId: string) {
-
-  if (typeof postId !== "number") {
+  if (!parseInt(postId)) {
     return 0
   }
 

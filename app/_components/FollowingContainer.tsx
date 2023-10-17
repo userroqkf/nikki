@@ -5,6 +5,7 @@ import styles from "@/_styles/FollowingContainer.module.css"
 import ProfilePicture from "./ProfilePicture";
 import { useState } from "react";
 import LoadingSpinnerDynamic from "./LoadingSpinnerDynamic";
+import Link from "next/link";
 
 type Props = {
   profilePictureURL: string;
@@ -32,7 +33,10 @@ export default function FollowingContainer({profilePictureURL, fullName, usernam
     {loading && <LoadingSpinnerDynamic />}
     {!loading && 
       <>
-        <ProfilePicture profilePictureURL={profilePictureURL} />
+        <Link href={`user/${username}`}>          
+          <ProfilePicture profilePictureURL={profilePictureURL} />
+        </Link>
+        <Link href={`user/${username}`}>
           <div>
             <div>
               {fullName}
@@ -41,9 +45,10 @@ export default function FollowingContainer({profilePictureURL, fullName, usernam
               @{username}
             </div>
           </div>
+        </Link>
           <div onClick={(e: React.MouseEvent<HTMLElement>) => {
             e.preventDefault()
-            modifyFollowState("alicesmith",username)
+            modifyFollowState("alicej",username)
             }}>
             <Button label={follow? "Following" : "Follow"} size="large" style={follow? 'solid' : 'empty'}/>
           </div>

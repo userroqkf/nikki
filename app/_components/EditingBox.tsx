@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef, Dispatch, SetStateAction} from "react";
+import { useEffect, useState, useRef, Dispatch, SetStateAction, useContext} from "react";
 import styles from "@/_styles/EditingBox.module.css";
 import Button from "./Button";
 import PostIput from "./PostInput";
 import UploadFileButton from "./UploadFileButton";
 import ImagePreview from "./ImagePreview";
-import { uploadIamge } from "utils/helperFunctions";
+import { getImageURL, uploadImage } from "utils/helperFunctions";
+import { CurrUserContext } from "./CurrUserContext";
 
 type content =  {
   datePosted: string;
@@ -16,12 +17,13 @@ type content =  {
 }
 
 type Props = {
+  postId: number;
   initialText: string;
   initialImage: string | undefined;
   setEditing: Dispatch<React.SetStateAction<boolean>>;
   setPostContent: Dispatch<React.SetStateAction<content>>;
 }
-export default function EditingBox({initialText, initialImage, setEditing}: Props) {
+export default function EditingBox({postId, initialText, initialImage, setEditing, setPostContent}: Props) {
   const DefaultPostEditPadding = 100;
   const [boxHeight, setBoxHeight] = useState<number>(DefaultPostEditPadding);
   const [showImage, setShowImage] = useState<string>(initialImage ? initialImage : "")
@@ -32,6 +34,8 @@ export default function EditingBox({initialText, initialImage, setEditing}: Prop
   const editBoxRef = useRef<HTMLDivElement>(null);
   const previewImageRef = useRef<HTMLInputElement>(null);
 
+  const userContext = useContext(CurrUserContext);
+
   useEffect(() => {
     if (editBoxRef.current) {
       editBoxRef.current.style.height = boxHeight + imageHeight + DefaultPostEditPadding + 'px';
@@ -39,13 +43,18 @@ export default function EditingBox({initialText, initialImage, setEditing}: Prop
   }, [boxHeight, imageHeight])
 
   const updatePost = async () => {
+    let imageId = ""
     if (selectedFile) {
-      const imageId = await uploadIamge(selectedFile)
+      const imageIdResponse = await uploadImage(selectedFile)
+      imageId = imageIdResponse.id
     }
-    // upload image
-    // await fetch('api/post', {method: 'PUT', body: JSON.stringify(postContent)})
-    // get content data 
-    // change post content 
+    const updatedPostResponse = await fetch('api/post', {method: 'PUT', body: JSON.stringify({postId: postId, imageURL: imageId, editedText: text})})
+    const updatedPost = await updatedPostResponse.json()
+    const { image: updatedImage, text: updatedText} = updatedPost;
+    setPostContent((prev) => {
+      const imageURL = getImageURL(updatedImage)
+      return {...prev, image: imageURL, text: updatedText}
+    })
     setEditing(false)
   }
 

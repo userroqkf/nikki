@@ -1,7 +1,7 @@
 import pool from "db";
 
 type postType = {
-  id: number;
+  postid: number;
   text: string;
   image: string;
   date_created: string;
@@ -15,7 +15,7 @@ type postType = {
 
 export async function getPost(postId: string): Promise<postType> {
   const postData = await pool.query(`
-  SELECT *,
+  SELECT post.id as postId, *,
     (SELECT COUNT(*) FROM comments WHERE post_id = $1) AS comments_count,
     (SELECT COUNT(*) FROM likes WHERE post_id = $1) AS likes_count
   FROM (

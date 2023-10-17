@@ -2,7 +2,7 @@
 
 import ProfilePicture from "./ProfilePicture";
 import styles from "@/_styles/PostContainer.module.css"
-import { useEffect, useRef, useState} from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import LikeButton from "./LikeButton";
 import CommentButton from "./CommentButton";
 import EditingBox from "./EditingBox";
@@ -11,9 +11,26 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { deletePost } from "utils/helperFunctions";
+import { useRouter } from "next/navigation";
+
+
+type postDataType = {
+  postId: number
+  profilePictureURL: string;
+  content: {
+    text: string;
+    datePosted: string;
+    likeCount: number;
+    commentCount: number;
+    liked: boolean;
+  },
+  fullName: string;
+  username: string;
+}
 
 type Props = {
-  key: number;
   postId: number;
   profilePictureURL: string;
   content: {
@@ -26,15 +43,17 @@ type Props = {
   }
   fullName: string;
   username: string;
+  setPostsState?: Dispatch<SetStateAction<Array<postDataType>>>;
+  redirectHome?: boolean;
 }
 
-export default function PostContainer({postId, profilePictureURL, content, fullName, username} : Props) {
+export default function PostContainer({postId, profilePictureURL, content, fullName, username, setPostsState, redirectHome} : Props) {
   const contentTextRef = useRef<HTMLDivElement>(null);
   const postContainerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter()
 
-  // used for updating post when confirmed
   const [postContent, setPostContent] = useState(content);
-  // console.log("testing postcontent data", postContent, postContent.image);
+  
 
   useEffect(() => {
     console.log("check postContent", postContent);
@@ -42,10 +61,15 @@ export default function PostContainer({postId, profilePictureURL, content, fullN
 
   const [editing, setEditing] = useState<boolean>(false)
 
-  const deletePost = () => {
-    // remove from db, if no error
-    // from array of posts filter 
-    console.log("delete obj");
+  const updateSetPostContent = async() => {
+    console.log(postId);
+    await deletePost(postId);
+    if (!redirectHome && setPostsState) { 
+      setPostsState(prev => prev.filter(post => post.postId !== postId))
+    } else {
+      router.refresh()
+      router.push("/")
+    }
   }
 
   return (
@@ -53,27 +77,34 @@ export default function PostContainer({postId, profilePictureURL, content, fullN
       { !editing &&
         <button className={styles.buttonPosition}>
           <FontAwesomeIcon className={styles.editButton} title={"editButton"} icon={faPenToSquare} onClick={() => setEditing(true)}/>
-          <FontAwesomeIcon className={styles.deleteButton} icon={faTrash} title={"deleteButton"} onClick={deletePost}/>
+          <FontAwesomeIcon className={styles.deleteButton} icon={faTrash} title={"deleteButton"} onClick={updateSetPostContent}/>
         </button> 
       }
       <div className={styles.profilePicturePosition}>
-        <ProfilePicture profilePictureURL={profilePictureURL}/>
+        <Link href={`user/${username}`}>
+          <ProfilePicture profilePictureURL={profilePictureURL}/>
+        </Link>
       </div>
     {!editing && 
       <div className={styles.postContentContainer}>
         <div className={styles.postInfo}>
+        <Link href={`user/${username}`}>
           <span> {fullName} </span>
           <span> @{username} </span>
+        </Link>
           <span> {postContent.datePosted} </span>
         </div>
-        <div className={styles.content}>
-          <div ref={contentTextRef}>
-            {postContent.text}
+        <Link href={`post/${postId}`}>
+          <div className={styles.content}>
+            <div ref={contentTextRef}>
+              {postContent.text}
+            </div>
+            {postContent.image && <Image src={postContent.image} width={500} height={500} alt="image"/>}
           </div>
-          {postContent.image && <Image src={postContent.image} width={500} height={500} alt="image"/>}
-        </div>
+        </Link>
         <div className={styles.contentFooter}>
-          <LikeButton liked={postContent.liked} likeCount={postContent.likeCount} />
+          {/* TODO: FIXME: need to update curruser later with authentication */}
+          <LikeButton liked={postContent.liked} likeCount={postContent.likeCount} postId={postId} currUser={"johndoe"}/>
           <CommentButton commentCount={postContent.commentCount} />
         </div>
       </div>
