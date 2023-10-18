@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import ListView from "./ListView";
 import styles from "@/_styles/Layout.module.css";
 import Image from "next/image";
@@ -7,37 +7,41 @@ import Image from "next/image";
 import logo from "../../public/logo.svg";
 import Button from "./Button";
 import { formatFeedUserData } from "utils/helperFunctions";
+import LoginStateButton from "@/_components/LoginStateButton"
 
 import { CurrUserContext } from '@/_components/CurrUserContext';
+
+import { Amplify, Auth, Hub } from 'aws-amplify';
+import { getUserData } from 'lib/database/getUserData';
+import { userDataFormat } from 'utils/helperFunctions';
+import { usePathname, useRouter } from "next/navigation";
+import { AuthContext, AuthProvider } from "./AuthContext";
+import awsconfig from '../aws-exports';
 
 type Props = {
   children: ReactNode;
 }
 
 type userProps = {
+  userId: number;
   profilePictureURL:string;
   fullName: string;
   username: string;
   backgroundImageURL: string;
 }
 
+Amplify.configure(awsconfig);
+
 export default function Layout({children}: Props) {
-  const [userContext, setUserContext] = useState<userProps | null>(null);
+  const router = useRouter()
+  const path = usePathname();
 
-  //delete later
-  useEffect(() => {
-    console.log(userContext);
-  }, [userContext])
-  
-  const login = async () => {
-    const currUserResponse =  await fetch('api/user/?' + new URLSearchParams({id: "1"}), {method:'GET'})
-    const currUserJSON = await currUserResponse.json()
-    const currUsser = await formatFeedUserData(currUserJSON)
-    setUserContext(currUsser)
-  }
-
-  const logout = () => {
-    setUserContext(null)
+  if ([`/auth`, '/auth/signin', '/auth/signup', 'auth/confirm-email'].includes(path)) {
+    return (
+      <>
+        {children}
+      </>
+    )
   }
 
   return (
@@ -48,15 +52,46 @@ export default function Layout({children}: Props) {
         </header>
         <nav>
           <ListView/>
-          {userContext && <Button label="logout" style="solid" size="medium" handleFormSubmit={logout}/>}
-          {!userContext && <Button label="login" style="solid" size="medium" handleFormSubmit={login}/>}
+          <LoginStateButton/>
         </nav>
       </div>
       <main className={styles.main}>
-        <CurrUserContext.Provider value={userContext}>
-          {children}
-        </CurrUserContext.Provider>
+        {children}
       </main>
     </div>
   )
 }
+
+
+
+
+  // const [userContext, setUserContext] = useState<userProps | null>(null);
+
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     const userInfo = await Auth.currentUserInfo()
+  //     if (userInfo) {
+  //       const userDataResponse = await fetch('api/user/?' + new URLSearchParams({username: userInfo.username}), {method:'GET'})
+  //       const userData = await userDataResponse.json()
+  //       const userDataFormatted = userDataFormat(userData);
+  //       setUserContext({...userDataFormatted})
+  //     }
+  //   } 
+
+  //   fetchUserData()
+  //   // Hub.listen('auth', async (data) => {
+  //   //   const event = data.payload.event;
+  //   //   console.log('event:', event);
+  //   //   if (event === "signIn") {
+  //   //     const userInfo = await Auth.currentUserInfo()
+  //   //     const userDataResponse = await fetch('api/user/?' + new URLSearchParams({username: userInfo.username}), {method:'GET'})
+  //   //     const userData = await userDataResponse.json()
+  //   //     const userDataFormatted = userDataFormat(userData);
+  //   //     setUserContext({...userDataFormatted})
+  //   //   }
+  //   //   if (event === 'signOut') {
+  //   //     setUserContext(null)
+  //   //     router.push('/auth/signin')
+  //   //   }
+  //   // });
+  // },[])

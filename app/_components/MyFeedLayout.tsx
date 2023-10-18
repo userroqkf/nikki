@@ -32,6 +32,7 @@ type Props =  {
 }
 
 export default function MyFeedLayout({feedPosts, userData}: Props) {
+
   const [postsState, setPostsState] = useState<Array<feedPostsType>>(feedPosts)
   return(
     <>

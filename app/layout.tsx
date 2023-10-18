@@ -4,30 +4,24 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
-import { Josefin_Sans } from 'next/font/google'
 import Layout from "./_components/Layout";
-import ErrorBoundary from "./_components/ErrorBoundary";
+import { usePathname } from 'next/navigation';
 
-const josefinSans = Josefin_Sans({subsets: ["latin"]})
+import { Amplify, Auth, Hub } from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { AuthProvider } from './_components/AuthContext';
 
-export default function RootLayout({
-  // Layouts must accept a children prop.
-  // This will be populated with nested layouts or pages
-  children,
-}: {
-  children: React.ReactNode
-}) {
+// Amplify.configure(awsconfig);
+
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
       <body>
-      {/* <style jsx global>{`
-        html {
-          font-family: ${josefinSans.style.fontFamily};
-        }
-      `}</style> */}
-      <Layout>
-          {children}
-      </Layout>
+        <AuthProvider>
+          <Layout>
+              {children}
+          </Layout>
+        </AuthProvider>
       </body>
     </html>
   )

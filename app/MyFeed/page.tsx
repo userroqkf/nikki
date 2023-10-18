@@ -4,6 +4,7 @@ import MyFeedLayout from "../_components/MyFeedLayout";
 import { formatFeedPosts, formatFeedUserData, getImageURL } from "utils/helperFunctions";
 import { getUserData } from "lib/database/getUserData";
 
+
 export default async function MyFeed() {
   const currUser = "johndoe"
   const feedPosts = await getFeedPosts(currUser,currUser);
