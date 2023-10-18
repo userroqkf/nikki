@@ -279,3 +279,25 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
     await fetch(url,{method: 'DELETE', body: JSON.stringify({postId})})
     
   }
+
+  type userDataType = {
+    id: number,
+    first_name: string;
+    last_name: string;
+    username: string;
+    profile_picture: string;
+    background_picture: string;
+  }
+
+  export function userDataFormat(userData: userDataType) {
+    const {id, first_name, last_name, username, profile_picture, background_picture} = userData;
+    return (
+      {
+        userId: id,
+        username,
+        fullName: first_name + " " + last_name,
+        profilePictureURL: profile_picture,
+        backgroundImageURL: background_picture
+      }
+    )
+  }
