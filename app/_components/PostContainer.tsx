@@ -2,7 +2,7 @@
 
 import ProfilePicture from "./ProfilePicture";
 import styles from "@/_styles/PostContainer.module.css"
-import { Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState} from "react";
 import LikeButton from "./LikeButton";
 import CommentButton from "./CommentButton";
 import EditingBox from "./EditingBox";
@@ -14,6 +14,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { deletePost } from "utils/helperFunctions";
 import { useRouter } from "next/navigation";
+import { AuthContext } from "./AuthContext";
 
 
 type postDataType = {
@@ -51,18 +52,17 @@ export default function PostContainer({postId, profilePictureURL, content, fullN
   const contentTextRef = useRef<HTMLDivElement>(null);
   const postContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter()
+  const {userContext} = useContext(AuthContext);
 
   const [postContent, setPostContent] = useState(content);
-  
 
-  useEffect(() => {
-    console.log("check postContent", postContent);
-  }, [postContent])
+  // useEffect(() => {
+  //   console.log("check postContent", postContent);
+  // }, [postContent])
 
   const [editing, setEditing] = useState<boolean>(false)
 
   const updateSetPostContent = async() => {
-    console.log(postId);
     await deletePost(postId);
     if (!redirectHome && setPostsState) { 
       setPostsState(prev => prev.filter(post => post.postId !== postId))
@@ -74,7 +74,7 @@ export default function PostContainer({postId, profilePictureURL, content, fullN
 
   return (
     <div className={styles.postContainer} ref={postContainerRef}>
-      { !editing &&
+      { !editing && userContext?.username === username &&
         <button className={styles.buttonPosition}>
           <FontAwesomeIcon className={styles.editButton} title={"editButton"} icon={faPenToSquare} onClick={() => setEditing(true)}/>
           <FontAwesomeIcon className={styles.deleteButton} icon={faTrash} title={"deleteButton"} onClick={updateSetPostContent}/>

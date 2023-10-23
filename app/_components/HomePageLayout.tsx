@@ -3,7 +3,10 @@ import PostBox from "./PostBox";
 import PostContainer from "./PostContainer";
 import styles from "@/_styles/HomePageLayout.module.css"
 import { formatFollowingPosts } from "utils/helperFunctions";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Auth } from "aws-amplify";
+import { AuthContext } from "./AuthContext";
+import { getImageURL } from "utils/helperFunctions";
 
 type postDataType = {
   postId: number
@@ -25,12 +28,11 @@ type Props = {
 
 export default function HomePageLayout({posts} : Props) {
   const [postsState, setPostsState] = useState<Array<postDataType>>(posts)
-
-
-  useEffect(() => {
-    console.log("post state useEffect",postsState);
-  }, [,postsState])
-
+  const { userContext } = useContext(AuthContext)
+  // const profilePictureURL =  getImageURL(userContext?.profilePictureURL);
+  // useEffect(() => {
+  //   console.log("post state useEffect",postsState);
+  // }, [,postsState])
 
   return(
     <>

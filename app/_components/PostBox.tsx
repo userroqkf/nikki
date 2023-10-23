@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef, Dispatch,SetStateAction} from "react";
+import { useEffect, useState, useRef, Dispatch,SetStateAction, useContext} from "react";
 import styles from "@/_styles/Postbox.module.css";
 import Button from "./Button";
 import PostIput from "./PostInput";
@@ -8,6 +8,10 @@ import ProfilePicture from "./ProfilePicture";
 import UploadFileButton from "./UploadFileButton";
 import ImagePreview from "./ImagePreview";
 import { formaNewtPostData, formatBody, uploadImage} from "utils/helperFunctions";
+import { AuthContext } from "./AuthContext";
+
+import { getImageURL } from "utils/helperFunctions";
+import { useRouter } from "next/navigation";
 
 
 type postDataType = {
@@ -25,6 +29,7 @@ type postDataType = {
 }
 
 type Props = {
+  // profilePictureURL: string;
   setPostsState: Dispatch<SetStateAction<Array<postDataType>>>;
 }
 
@@ -38,7 +43,10 @@ export default function PostBox({ setPostsState } : Props) {
   const previewImageRef = useRef<HTMLInputElement>(null);
 
   const [postText, setPostText] = useState<string>("")
-  
+
+  const router = useRouter();
+  const {userContext} = useContext(AuthContext);
+
   useEffect(() => {
     if (postBoxRef.current) {
       postBoxRef.current.style.height = boxHeight + imageHeight + DefaultPostBoxPadding + 'px';
@@ -46,13 +54,13 @@ export default function PostBox({ setPostsState } : Props) {
   }, [boxHeight, imageHeight])
 
   //TODO: get profilepicture url from current user 
-  const profilePictureURL = "https://picsum.photos/id/237/200/300";
+  // const profilePictureURL = "https://picsum.photos/id/237/200/300";
 
   const  handleFormSubmit = async (e: Event) => {
     e.preventDefault()
-    const userId = 1
+    const userId = userContext.userId
+    
     let imageId = ""
-
     try {
       if (selectedFile) {
         const imageIdJSON = await uploadImage(selectedFile)
@@ -66,7 +74,7 @@ export default function PostBox({ setPostsState } : Props) {
       })
 
       const savedPostDataResponse = await fetch('/api/post', {method: 'POST', body: body})
-      const userDataResponse = await fetch('api/user/?' + new URLSearchParams({id: userId .toString()}), {method:'GET'})
+      const userDataResponse = await fetch('api/user/?' + new URLSearchParams({id: userId.toString()}), {method:'GET'})
       const userData = await userDataResponse.json();
       const postData = await savedPostDataResponse.json();
       const formattedPostData = await formaNewtPostData(postData,userData)
@@ -75,7 +83,6 @@ export default function PostBox({ setPostsState } : Props) {
       setSelectedFile(null)
       setPostText("")
       setImageHeight(0)
-      //FIXME: not preprending 
       setPostsState((prev) => [formattedPostData, ...prev])
 
     } catch(err) {
@@ -85,9 +92,9 @@ export default function PostBox({ setPostsState } : Props) {
 
   return (
     <div className={styles.postBoxLayout} ref={postBoxRef} >
-      <div className={styles.imagePosition}>
+      {/* <div className={styles.imagePosition}>
         <ProfilePicture profilePictureURL={profilePictureURL}/>
-      </div>
+      </div> */}
       <div className={styles.inputLayout}>
         <PostIput setBoxHeight={setBoxHeight} setPostText={setPostText} postText={postText}/>
         {showImage && <ImagePreview setImageHeight={setImageHeight} setShowImage={setShowImage} showImage={showImage} />}

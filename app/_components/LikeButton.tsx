@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faH, faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import styles from "@/_styles/LikeButton.module.css";
 import numeral from "numeral";
+import { AuthContext } from "./AuthContext";
+import { redirect, useRouter } from "next/navigation";
 
 type Props = {
   likeCount: number;
@@ -14,16 +16,22 @@ type Props = {
 
 export default function LikeButton({likeCount, liked, currUser, postId}: Props) {
   //Might be a better idea to use useMemo instead of useState
+  const {userContext } = useContext(AuthContext)
   const [like, setLike] = useState<boolean>(liked);
   const [likeCountUpdate, setLikeCountUpdage] = useState<number>(likeCount)
+  const router = useRouter()
 
   const updateLikeButton = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    const url = `http://localhost:3000/api/like`;
-    if (!like) await fetch(url, {method: "POST", body: JSON.stringify({currUser, postId}) });
-    if (like) await fetch(url, {method: "DELETE", body: JSON.stringify({currUser, postId}) });
-    like ? setLikeCountUpdage(prev => prev - 1) : setLikeCountUpdage(prev => prev + 1)
-    setLike(!like);
+    if (userContext) {
+      const url = `http://localhost:3000/api/like`;
+      if (!like) await fetch(url, {method: "POST", body: JSON.stringify({currUser, postId}) });
+      if (like) await fetch(url, {method: "DELETE", body: JSON.stringify({currUser, postId}) });
+      like ? setLikeCountUpdage(prev => prev - 1) : setLikeCountUpdage(prev => prev + 1)
+      setLike(!like);
+    } else {
+      router.push('/auth/signin')
+    }
   }
 
   const numberToString = (num: number) => {

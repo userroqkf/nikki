@@ -4,6 +4,8 @@ import { Auth } from 'aws-amplify';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
+import styles from "@/_styles/SigninForm.module.css"
+import Button from './Button';
 
 export default function SigninForm() {
   const { signIn } = useContext(AuthContext);
@@ -15,28 +17,10 @@ export default function SigninForm() {
     password: ""
   })
 
-  // const handleSignup = async(e:React.MouseEvent<HTMLElement>) => {
-  //   e.preventDefault()
-  //   try {
-  //     const {username, password} = signinform
-  //     const { user } = await Auth.signIn({
-  //       username,
-  //       password,
-  //     });
-  //     router.push('/')
-  //   } catch (error: Error) {
-  //     const code = error.code;
-  //     switch(code) {
-  //       case 'UsernameExistsException':
-  //         alert('user already exists')
-  //     }
-  //   }
-  // }
-
   return (
-    <form>
-      <h3>Sign Up</h3>
-      <div className="mb-3">
+    <form className={styles.form}>
+      <h3>Sign In</h3>
+      <div className={styles.formInput}>
         <label>Username</label>
         <input
           type="username"
@@ -46,7 +30,7 @@ export default function SigninForm() {
           onChange={(e) => setSigninform(prev => {return {...prev, username: e.target.value}})}
         />
       </div>
-      <div className="mb-3">
+      <div className={styles.formInput}>
         <label>Password</label>
         <input
           type="password"
@@ -56,15 +40,16 @@ export default function SigninForm() {
           onChange={(e) => setSigninform(prev => {return {...prev, password: e.target.value}})}
         />
       </div>
-      <div className="d-grid">
-        <button type="submit" className="btn btn-primary" onClick={(e: React.MouseEvent<HTMLElement>) => {
+      <div className={styles.submit}>
+        <Button label='Sign In' size='large' style='solid' handleFormSubmit={(e: React.MouseEvent<HTMLElement>) => {
           e.preventDefault()
           signIn(signinform.username, signinform.password)
           }
-        }>
-          Sign In
-        </button>
+        }/>
       </div>
+      <p className={styles.register}>
+        New User? <a href="/auth/signup">Create new account</a>
+      </p>
     </form>
   )
 }

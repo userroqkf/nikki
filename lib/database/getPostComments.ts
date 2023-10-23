@@ -9,6 +9,7 @@ export async function getPostComments(postId: string) {
     SELECT * FROM comments WHERE post_id = $1
   ) AS comment 
   JOIN users ON owner_id = users.id
+  ORDER BY date DESC
   `, [postId])
 
   const res = comments.rows.map((comment, index) => {

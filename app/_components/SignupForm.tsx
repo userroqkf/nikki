@@ -3,6 +3,8 @@
 import { Auth } from 'aws-amplify';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import styles from "@/_styles/SignupForm.module.css"
+import Button from './Button';
 
 type SignUpParameters = {
   username: string;
@@ -12,7 +14,7 @@ type SignUpParameters = {
 };
 
 export default function SignupForm() {
-  const router = useRouter()
+const router = useRouter()
 
   const [ signupform , setSignupform ] = useState({
     username: "", 
@@ -49,9 +51,9 @@ export default function SignupForm() {
   }
 
   return (
-    <form>
+    <form className={styles.form}>
       <h3>Sign Up</h3>
-      <div className="mb-3">
+      <div className={styles.formInput}>
         <label>First name</label>
         <input
           type="text"
@@ -61,7 +63,7 @@ export default function SignupForm() {
           onChange={(e) => setSignupform(prev => {return {...prev, firstName: e.target.value}})}
         />
       </div>
-      <div className="mb-3">
+      <div className={styles.formInput}>
         <label>Last name</label>
         <input
           type="text"
@@ -71,7 +73,7 @@ export default function SignupForm() {
           onChange={(e) => setSignupform(prev => {return {...prev, lastName: e.target.value}})}
         />
       </div>
-      <div className="mb-3">
+      <div className={styles.formInput}>
         <label>Username</label>
         <input
           type="username"
@@ -81,7 +83,7 @@ export default function SignupForm() {
           onChange={(e) => setSignupform(prev => {return {...prev, username: e.target.value}})}
         />
       </div>
-      <div className="mb-3">
+      <div className={styles.formInput}>
         <label>Email address</label>
         <input
           type="email"
@@ -91,7 +93,7 @@ export default function SignupForm() {
           onChange={(e) => setSignupform(prev => {return {...prev, email: e.target.value}})}
         />
       </div>
-      <div className="mb-3">
+      <div className={styles.formInput}>
         <label>Password</label>
         <input
           type="password"
@@ -101,13 +103,11 @@ export default function SignupForm() {
           onChange={(e) => setSignupform(prev => {return {...prev, password: e.target.value}})}
         />
       </div>
-      <div className="d-grid">
-        <button type="submit" className="btn btn-primary" onClick={handleSignup}>
-          Sign Up
-        </button>
+      <div className="submit">
+        <Button size="large" style='solid' label='Sign Up' handleFormSubmit={handleSignup}/>
       </div>
-      <p className="forgot-password text-right">
-        Already registered <a href="/sign-in">sign in?</a>
+      <p className={styles.alreadyRegistered}>
+        Already registered <a href="/auth/signin">sign in?</a>
       </p>
     </form>
   )
