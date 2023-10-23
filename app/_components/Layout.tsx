@@ -5,17 +5,9 @@ import styles from "@/_styles/Layout.module.css";
 import Image from "next/image";
 
 import logo from "../../public/logo.svg";
-import Button from "./Button";
-import { formatFeedUserData } from "utils/helperFunctions";
 import LoginStateButton from "@/_components/LoginStateButton"
-
-import { CurrUserContext } from '@/_components/CurrUserContext';
-
 import { Amplify, Auth, Hub } from 'aws-amplify';
-import { getUserData } from 'lib/database/getUserData';
-import { userDataFormat } from 'utils/helperFunctions';
 import { usePathname, useRouter } from "next/navigation";
-import { AuthContext, AuthProvider } from "./AuthContext";
 import awsconfig from '../aws-exports';
 
 type Props = {
@@ -30,13 +22,13 @@ type userProps = {
   backgroundImageURL: string;
 }
 
-Amplify.configure(awsconfig);
+Amplify.configure({ ...awsconfig, ssr: true });
 
 export default function Layout({children}: Props) {
-  const router = useRouter()
   const path = usePathname();
 
-  if ([`/auth`, '/auth/signin', '/auth/signup', 'auth/confirm-email'].includes(path)) {
+  const patterns = [/\/auth/, /\/auth\/signin/, /\/auth\/signup/, /\/auth\/confirm-email/];
+  if (patterns.some(pattern => pattern.test(path))) {
     return (
       <>
         {children}

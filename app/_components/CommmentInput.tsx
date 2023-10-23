@@ -1,12 +1,13 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, Dispatch } from "react"
 import styles from "@/_styles/CommentInput.module.css"
 
 type Props = {
+  setText: Dispatch<React.SetStateAction<string>>;
+  text: string;
   setBoxHeight: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function CommentInput({setBoxHeight}: Props) {
-  const [text, setText] = useState("")
+export default function CommentInput({setBoxHeight, setText, text}: Props) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {

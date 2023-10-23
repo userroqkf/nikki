@@ -34,14 +34,13 @@ const getUserInfo = async () => {
 
 export const AuthContext = createContext<authProps>({} as authProps);
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children } : React.ReactNode) {
   const router = useRouter();
   const [userContext, setUserContext] = useState<userProps | null>(null);
 
   useEffect(() => {
     getUserInfo()
       .then(res => {
-        console.log("res res", res);
         setUserContext(res);
       })
   }, [])
@@ -53,19 +52,10 @@ export function AuthProvider({ children }) {
         username,
         password,
       });
+      const formattedUserData = await getUserInfo();
+      setUserContext(formattedUserData);
+      router.push('/');
 
-      const userInfo = await Auth.currentUserInfo()
-
-      if (userInfo) {
-        const url = `http://localhost:3000/api/user/?`; 
-        const userDataResponse = await fetch(url + new URLSearchParams({ username: userInfo.username }), { method: 'GET' });
-        const userData = await userDataResponse.json();
-        const userDataFormatted = userDataFormat(userData);
-        console.log("pritning userdata formatted ha check",userDataFormatted);
-        setUserContext(userDataFormatted);
-        router.push('/');
-      }
-      
     } catch (error: Error) {
       console.log("printed error message",error);
       const code = error.code;

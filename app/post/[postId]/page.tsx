@@ -2,13 +2,15 @@ import CommentBox from "../../_components/CommentBox"
 import Comment from "../../_components/Comment"
 import PostContainer from "../../_components/PostContainer"
 import styles from "@/_styles/[post].module.css"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import { checkPostExists } from "lib/database/checkPostExists"
 import { getPost } from "lib/database/getPost"
 import { getPostComments } from "lib/database/getPostComments"
 import { checkUserLikedPost } from "lib/database/checkUserLikedPost"
 
 import { formatPostData } from "../../../utils/helperFunctions"
+import getWithSSRContext from "utils/getWithSSRContext"
+import { getUserId } from "lib/database/getUserId"
 
 type commentType = {
   profilePictureURL: string;
@@ -30,8 +32,20 @@ export default async function PostPage({ params }: { params: { postId: string } 
   }
 
   const postData = await getPost(postId);
-  const userLiked = await checkUserLikedPost("1", postId)
   const postComments = await getPostComments(postId)
+  let userLiked = false
+
+  const SSR = getWithSSRContext()
+  try {
+    const res = await SSR.Auth.currentAuthenticatedUser();
+    const userId = await getUserId(res.username)
+    userLiked = await checkUserLikedPost(userId.id, postId)
+  } catch (err) {
+    console.log(err);
+    if (err !==("The user is not authenticated")) {
+      console.log("error message shown",err);
+    }
+  }
 
   const [post, comments, liked] = await Promise.all([postData, postComments, userLiked])
 
@@ -54,7 +68,7 @@ export default async function PostPage({ params }: { params: { postId: string } 
         Post Comment
       </div>
       {/*TODO: if user is logged in show commentbox  */}
-      {<CommentBox profilePictureURL={"https://picsum.photos/id/237/200/300"} />}
+      {<CommentBox postId={postId}/>}
       <div className={styles.pageName}>
         Comments
       </div>

@@ -51,7 +51,7 @@ export default function MyFeedLayout({feedPosts, userData}: Props) {
         const { profilePictureURL, content, fullName, username, postId }= post;
         return (
           <PostContainer
-            key={index}
+            key={postId}
             postId={postId}
             profilePictureURL={profilePictureURL}
             content={content}
