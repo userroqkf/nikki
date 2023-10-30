@@ -29,10 +29,6 @@ type Props = {
 export default function HomePageLayout({posts} : Props) {
   const [postsState, setPostsState] = useState<Array<postDataType>>(posts)
   const { userContext } = useContext(AuthContext)
-  // const profilePictureURL =  getImageURL(userContext?.profilePictureURL);
-  // useEffect(() => {
-  //   console.log("post state useEffect",postsState);
-  // }, [,postsState])
 
   return(
     <>

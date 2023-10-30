@@ -13,7 +13,6 @@ export default async function MyFeed() {
   try {
     const res = await SSR.Auth.currentAuthenticatedUser();
   } catch (err) {
-    console.log('err', err);
     redirect('/auth/signin');
   }
   const res = await SSR.Auth.currentAuthenticatedUser();

@@ -9,6 +9,7 @@ CREATE TABLE users (
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   username VARCHAR(255) NOT NULL,
+  confirmed BOOLEAN DEFAULT FALSE,
   profile_picture VARCHAR(255) DEFAULT 'defaultProfile.jpg',
   background_picture VARCHAR(255) DEFAULT 'defaultBackground.png'
 );

@@ -19,7 +19,6 @@ const client = new S3Client({
 
 export async function POST(req: Request, res: NextApiResponse) {
   const {userId, postId, commentText} = await req.json();
-  console.log(userId, postId, commentText);
   const dateCreated = new Date()
   try {
     const postData = await pool.query(

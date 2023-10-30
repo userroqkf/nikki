@@ -46,9 +46,6 @@ export async function POST(request: NextResponse, response: NextResponse) {
 
 export async function GET(req: NextResponse, res: NextResponse) {
     try {
-      console.log("get route upload");
-      console.log("get route upload2", req);
-  
       // Attempt to parse the URL from req.url
       const { searchParams } = new URL(req.url);
       const id = searchParams.get('id');
@@ -61,8 +58,6 @@ export async function GET(req: NextResponse, res: NextResponse) {
       // If everything is successful, return the response
       return NextResponse.json(src);
     } catch (error) {
-      // If an error occurs, handle it here
-      console.log("omething here")
       console.error("Error:", error);
   
       // You can return an error response or perform other error-handling logic.

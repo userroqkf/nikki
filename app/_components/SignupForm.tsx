@@ -14,6 +14,7 @@ type SignUpParameters = {
 };
 
 export default function SignupForm() {
+  const [error, setError] = useState('');
 const router = useRouter()
 
   const [ signupform , setSignupform ] = useState({
@@ -27,25 +28,26 @@ const router = useRouter()
   const handleSignup = async(e:React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     try {
-      const {username, password, email} = signupform
+      const {username, password, email, firstName, lastName} = signupform
       const { user } = await Auth.signUp({
         username,
         password,
         attributes: {
           email
-        },
-        // autoSignIn: {
-        //   // optional - enables auto sign in after user is confirmed
-        //   enabled: true,
-        // },
+        }
       });
-      console.log(user);
+      const url = `http://localhost:3000/api/user/?`; 
+      await fetch(url, {method: "POST", body:JSON.stringify({username,firstName, lastName})})
       router.push('/auth/confirm-email?' + new URLSearchParams({username: username}))
-    } catch (error: Error) {
+    } catch (error: Error | any) {
       const code = error.code;
       switch(code) {
         case 'UsernameExistsException':
-          alert('user already exists')
+          setError("Username already exists")
+          break;
+        default:
+          setError("There as an error, please try again later")
+          break;
       }
     }
   }
@@ -54,6 +56,7 @@ const router = useRouter()
     <form className={styles.form}>
       <h3>Sign Up</h3>
       <div className={styles.formInput}>
+        <h5 style={{ color: 'red' }}>{error}</h5>
         <label>First name</label>
         <input
           type="text"

@@ -9,9 +9,7 @@ import { formatFeedPosts, formatFeedUserData } from "utils/helperFunctions";
 
 export default async function userPage({ params }: { params: { username: string } }) {
   const username = params.username
-  console.log(username);
   const userExists = await checkUserExists(username)
-  console.log('user check', userExists);
 
   if (!Number(userExists)) {
     notFound()

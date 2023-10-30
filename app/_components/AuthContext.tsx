@@ -1,9 +1,8 @@
 'use client'
-import { Amplify, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/navigation';
-import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import React, {  createContext, useEffect, useState } from 'react';
 import { userDataFormat } from 'utils/helperFunctions';
-import awsconfig from '../aws-exports';
 
 type userProps = {
   userId: number;
@@ -46,7 +45,6 @@ export function AuthProvider({ children } : React.ReactNode) {
   }, [])
 
   const signIn = async (username:string, password: string) => {
-    console.log("here signin", username, password);
     try {
       await Auth.signIn({
         username,
@@ -57,12 +55,7 @@ export function AuthProvider({ children } : React.ReactNode) {
       router.push('/');
 
     } catch (error: Error) {
-      console.log("printed error message",error);
-      const code = error.code;
-      switch(code) {
-        case 'UsernameExistsException':
-          alert('user already exists')
-      }
+      throw error
     }
   };
 

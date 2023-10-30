@@ -53,37 +53,3 @@ export default function Layout({children}: Props) {
     </div>
   )
 }
-
-
-
-
-  // const [userContext, setUserContext] = useState<userProps | null>(null);
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     const userInfo = await Auth.currentUserInfo()
-  //     if (userInfo) {
-  //       const userDataResponse = await fetch('api/user/?' + new URLSearchParams({username: userInfo.username}), {method:'GET'})
-  //       const userData = await userDataResponse.json()
-  //       const userDataFormatted = userDataFormat(userData);
-  //       setUserContext({...userDataFormatted})
-  //     }
-  //   } 
-
-  //   fetchUserData()
-  //   // Hub.listen('auth', async (data) => {
-  //   //   const event = data.payload.event;
-  //   //   console.log('event:', event);
-  //   //   if (event === "signIn") {
-  //   //     const userInfo = await Auth.currentUserInfo()
-  //   //     const userDataResponse = await fetch('api/user/?' + new URLSearchParams({username: userInfo.username}), {method:'GET'})
-  //   //     const userData = await userDataResponse.json()
-  //   //     const userDataFormatted = userDataFormat(userData);
-  //   //     setUserContext({...userDataFormatted})
-  //   //   }
-  //   //   if (event === 'signOut') {
-  //   //     setUserContext(null)
-  //   //     router.push('/auth/signin')
-  //   //   }
-  //   // });
-  // },[])

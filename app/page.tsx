@@ -19,16 +19,15 @@ export default async function Home() {
   const SSR = getWithSSRContext()
   try {
     const res = await SSR.Auth.currentAuthenticatedUser();
+    // const res = await SSR.Auth.currentAuthenticatedUser();
+    const userId = await getUserId(res.username)
+    const followingPosts = await getFollowingPosts(userId.id)
+    const posts = await formatFeedPosts(followingPosts);
+  
+    return (
+      <HomePageLayout posts={posts}/>
+    )
   } catch (err) {
-    console.log('err', err);
     redirect('/auth/signin');
   }
-  const res = await SSR.Auth.currentAuthenticatedUser();
-  const userId = await getUserId(res.username)
-  const followingPosts = await getFollowingPosts(userId.id)
-  const posts = await formatFeedPosts(followingPosts);
-
-  return (
-    <HomePageLayout posts={posts}/>
-  )
 }

@@ -7,7 +7,5 @@ export async function getUserByUsername(username: string) {
     FROM users
     WHERE username = $1
   `, [username])
-
-  console.log(userData);
   return userData.rows[0]
 }

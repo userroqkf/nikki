@@ -9,8 +9,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const id = searchParams.get('id')
   const username = searchParams.get('username')
 
-  console.log("route get", "id", id, "username", username);
-
   try {
     if (!id && !username) {
       throw Error("Id or username is not defined")
@@ -49,4 +47,15 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     `, [backgroundImageURL, username])
     return NextResponse.json(res)
   }
+}
+
+export async function POST(req: NextRequest, res: NextResponse) {
+  const {firstName, lastName, username} = await req.json()
+  const newUser = await pool.query(`
+    INSERT INTO users(first_name,last_name,username)
+    VALUES
+    ($1, $2, $3)
+    RETURNING *
+  `, [firstName, lastName, username])
+  return NextResponse.json(newUser)
 }

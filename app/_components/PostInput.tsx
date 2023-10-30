@@ -21,7 +21,6 @@ export default function PostIput({initialText, setBoxHeight,postText, setPostTex
   
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = e.target?.value;
-    // setText(val);
     setPostText(val)
 
   }
