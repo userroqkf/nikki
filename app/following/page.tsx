@@ -11,7 +11,6 @@ export default async function Following() {
   try {
     const res = await SSR.Auth.currentAuthenticatedUser();
   } catch (err) {
-    console.log('err', err);
     redirect('/auth/signin');
   }
 

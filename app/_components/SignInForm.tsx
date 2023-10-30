@@ -1,15 +1,16 @@
 'use client'
 
 import { Auth } from 'aws-amplify';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import styles from "@/_styles/SigninForm.module.css"
 import Button from './Button';
+import Error from '@/error';
 
 export default function SigninForm() {
+  const [error, setError] = useState('');
   const { signIn } = useContext(AuthContext);
-
   const router = useRouter()
 
   const [ signinform , setSigninform ] = useState({
@@ -21,6 +22,7 @@ export default function SigninForm() {
     <form className={styles.form}>
       <h3>Sign In</h3>
       <div className={styles.formInput}>
+        <h5 style={{ color: 'red' }}>{error}</h5>
         <label>Username</label>
         <input
           type="username"
@@ -41,9 +43,22 @@ export default function SigninForm() {
         />
       </div>
       <div className={styles.submit}>
-        <Button label='Sign In' size='large' style='solid' handleFormSubmit={(e: React.MouseEvent<HTMLElement>) => {
+        <Button label='Sign In' size='large' style='solid' handleFormSubmit={async (e: React.MouseEvent<HTMLElement>) => {
           e.preventDefault()
-          signIn(signinform.username, signinform.password)
+          try { 
+            await signIn(signinform.username, signinform.password)
+          }catch(error: Error | any) {
+            switch(error.code) {
+              case 'UserNotConfirmedException':
+                setError("User is not confirmed")
+                setTimeout(() => {
+                  router.push('/auth/confirm-email?' + new URLSearchParams({username: signinform.username}))
+                }, 1000)
+                break;
+              default:
+                setError("Incorrect username or password")
+            }
+          }
           }
         }/>
       </div>

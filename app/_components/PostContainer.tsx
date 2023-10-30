@@ -56,10 +56,6 @@ export default function PostContainer({postId, profilePictureURL, content, fullN
 
   const [postContent, setPostContent] = useState(content);
 
-  // useEffect(() => {
-  //   console.log("check postContent", postContent);
-  // }, [postContent])
-
   const [editing, setEditing] = useState<boolean>(false)
 
   const updateSetPostContent = async() => {
@@ -81,7 +77,7 @@ export default function PostContainer({postId, profilePictureURL, content, fullN
         </button> 
       }
       <div className={styles.profilePicturePosition}>
-        <Link href={`user/${username}`}>
+        <Link href={`/user/${username}`}>
           <ProfilePicture profilePictureURL={profilePictureURL}/>
         </Link>
       </div>

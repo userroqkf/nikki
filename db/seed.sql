@@ -1,11 +1,11 @@
 
-INSERT INTO users (first_name, last_name, username) VALUES
-  ('John', 'Doe', 'johndoe'),
-  ('Alice', 'Johnson', 'alicej'),
-  ('Jane', 'Smith', 'janesmith'),
-  ('Bob', 'Smith', 'bobsmith'),
-  ('Ella', 'Anderson', 'ella'),
-  ('David', 'Brown', 'davidbrown');
+INSERT INTO users (first_name, last_name, username, confirmed) VALUES
+  ('John', 'Doe', 'johndoe', TRUE),
+  ('Alice', 'Johnson', 'alicej', TRUE),
+  ('Jane', 'Smith', 'janesmith', TRUE),
+  ('Bob', 'Smith', 'bobsmith', TRUE),
+  ('Ella', 'Anderson', 'ella', TRUE),
+  ('David', 'Brown', 'davidbrown', TRUE);
 
 INSERT INTO posts (text, owner_id, date_created) VALUES
   ('Hello, World!', 1, NOW() - INTERVAL '1 day'),

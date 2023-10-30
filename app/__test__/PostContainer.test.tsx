@@ -4,6 +4,7 @@ import {render, screen, fireEvent} from '@testing-library/react'
 
 describe('test PostContainer', () => {
   const mockProps = {
+    postId: 5,
     profilePictureURL:"https://picsum.photos/id/237/200/300",
     fullName:"Tom Tom",
     username: "tomtom19238",
@@ -11,9 +12,9 @@ describe('test PostContainer', () => {
       text: "This is a comment testing content string",
       datePosted: "30s",
       commentCount: 100,
-      likeCount: 11
+      likeCount: 11,
+      liked: false
     },
-    liked: false
   }
 
   it('should render PostContainer', () => {

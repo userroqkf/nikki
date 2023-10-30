@@ -1,5 +1,6 @@
 // db.test.js
 import pool from "../../db/index";
+import '@testing-library/jest-dom';
 
 describe('PostgreSQL DB Connection', () => {
   afterAll(() => {
@@ -17,7 +18,7 @@ describe('PostgreSQL DB Connection', () => {
     const client = await pool.connect();
     try {
       const result = await client.query('SELECT * FROM users');
-      expect(result.rows.length).toBe(3);
+      expect(result.rows.length).toBe(6);
     } finally {
       client.release();
     }

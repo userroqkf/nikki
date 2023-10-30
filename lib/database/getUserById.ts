@@ -7,7 +7,5 @@ export async function getUserById(id: string | number) {
     FROM users
     WHERE id = $1
   `, [id])
-
-  console.log(userData.rows[0]);
   return userData.rows[0]
 }

@@ -11,6 +11,7 @@ type ConfirmSignUpParameters = {
 };
 
 export default function ConfirmSignUp() {
+  const [error, setError] = useState('')
   const [code, setCode] = useState("");
 
   const router = useRouter();
@@ -24,9 +25,12 @@ export default function ConfirmSignUp() {
     if (username) {
       try {
         await Auth.confirmSignUp(username, code);
+        // confirm in database
+        const url = `http://localhost:3000/api/confirm/?`; 
+        await fetch(url, {method: "PUT", body:JSON.stringify({username})})
         router.push("/");
       } catch (error) {
-        console.log('error confirming sign up', error);
+        setError("Please try again later")
       }
     }
   }
@@ -35,6 +39,7 @@ export default function ConfirmSignUp() {
     <form className={styles.form}> 
       <h3>Confirm Email</h3>
       <div className={styles.formInput}>
+        <h5 style={{ color: 'red' }}>{error}</h5>
         <label>Confirmation Code</label>
         <input
           type="code"

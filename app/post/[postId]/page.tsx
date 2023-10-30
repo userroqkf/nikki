@@ -41,16 +41,13 @@ export default async function PostPage({ params }: { params: { postId: string } 
     const userId = await getUserId(res.username)
     userLiked = await checkUserLikedPost(userId.id, postId)
   } catch (err) {
-    console.log(err);
     if (err !==("The user is not authenticated")) {
-      console.log("error message shown",err);
     }
   }
 
   const [post, comments, liked] = await Promise.all([postData, postComments, userLiked])
 
   const postFormatted = formatPostData(post, liked)
-  console.log("post", postFormatted);
   return (
     <div>
       <div className={styles.selectedPageName}>

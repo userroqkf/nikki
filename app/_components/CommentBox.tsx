@@ -23,7 +23,6 @@ export default function CommentBox({postId} : Props) {
   const postBoxRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const {userContext} = useContext(AuthContext);
-  console.log(userContext);
 
   useEffect(() => {
     if (postBoxRef.current) {
@@ -41,7 +40,6 @@ export default function CommentBox({postId} : Props) {
         setText("")
         router.refresh();
       } catch (err) {
-          console.log(err);
         }
       } else {
         router.push('/auth/signin')

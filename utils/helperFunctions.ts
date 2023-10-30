@@ -14,7 +14,6 @@ type postType = {
 }
 
 export function formatPostData(data: postType, liked: boolean) {
-  console.log("format",data);
   const {postid, text, image, date_created, first_name, last_name, username, profile_picture, comments_count, likes_count } = data;
   const postImageURL = getImageURL(image);
   const profilePictureURL = getImageURL(profile_picture);
@@ -193,7 +192,6 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
       }
       return ""
     } catch(err) {
-        console.log(err)
     }
   }
 
@@ -240,11 +238,9 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
     body.append('userId', userId.toString())
     body.append('text', text.toString())
     body.append('text', imageId.toString())
-    // console.log(formatBody);
     return body
   }
   export function formatDateFromNow(date: Date) {
-    // console.log("formated date console log",date, formatDistanceToNow(date));
     return formatDistanceToNow(date)
   }
 

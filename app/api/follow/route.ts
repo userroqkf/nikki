@@ -1,16 +1,14 @@
 import pool from "db";
 import { getUserId } from "lib/database/getUserId";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req, res) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const data = await req.json()
     const {currUser, followUser} = data;
 
     const currUserId = await getUserId(currUser)
     const followUserId = await getUserId(followUser)
-
-    console.log(currUserId.id);
 
     const val = await pool.query(`
       INSERT INTO follow(follower, following)
@@ -25,7 +23,7 @@ export async function POST(req, res) {
   }
 }
 
-export async function PUT(req, res) {
+export async function PUT(req: NextRequest, res: NextResponse) {
   try {
     const data = await req.json()
     const {currUser, followUser} = data;
