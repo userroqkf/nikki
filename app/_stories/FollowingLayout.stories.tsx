@@ -10,5 +10,5 @@ export default meta;
 type Story = StoryObj<typeof FollowingLayout>;
 
 export const Primary: Story = {
-  render: () => <FollowingLayout />
+  render: () => <FollowingLayout data={[{profilePictureURL: "https://picsum.photos/id/237/200/300", fullName: "test" , username: "testusername", following: false}]}/>
 }

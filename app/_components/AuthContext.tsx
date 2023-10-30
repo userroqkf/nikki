@@ -33,7 +33,7 @@ const getUserInfo = async () => {
 
 export const AuthContext = createContext<authProps>({} as authProps);
 
-export function AuthProvider({ children } : React.ReactNode) {
+export function AuthProvider({ children } : {children: React.ReactNode}) {
   const router = useRouter();
   const [userContext, setUserContext] = useState<userProps | null>(null);
 
@@ -54,7 +54,7 @@ export function AuthProvider({ children } : React.ReactNode) {
       setUserContext(formattedUserData);
       router.push('/');
 
-    } catch (error: Error) {
+    } catch (error: Error | any) {
       throw error
     }
   };

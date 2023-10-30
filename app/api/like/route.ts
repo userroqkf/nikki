@@ -1,8 +1,8 @@
 import pool from "db";
 import { getUserId } from "lib/database/getUserId";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req, res) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const data = await req.json()
     const {currUser, postId} = data;
@@ -22,7 +22,7 @@ export async function POST(req, res) {
   }
 }
 
-export async function DELETE(req, res) {
+export async function DELETE(req: NextRequest, res: NextResponse) {
   try {
     const data = await req.json()
     const {currUser, postId} = data;

@@ -7,7 +7,7 @@ import PostIput from "./PostInput";
 import ProfilePicture from "./ProfilePicture";
 import UploadFileButton from "./UploadFileButton";
 import ImagePreview from "./ImagePreview";
-import { formaNewtPostData, formatBody, uploadImage} from "utils/helperFunctions";
+import { formaNewPostData, formatBody, uploadImage} from "utils/helperFunctions";
 import { AuthContext } from "./AuthContext";
 
 import { getImageURL } from "utils/helperFunctions";
@@ -58,34 +58,37 @@ export default function PostBox({ setPostsState } : Props) {
 
   const  handleFormSubmit = async (e: Event) => {
     e.preventDefault()
-    const userId = userContext.userId
-    
-    let imageId = ""
-    try {
-      if (selectedFile) {
-        const imageIdJSON = await uploadImage(selectedFile)
-        imageId = imageIdJSON.id
+    if (userContext) {
+      const userId = userContext.userId
+      
+      let imageId = ""
+      try {
+        if (selectedFile) {
+          const imageIdJSON = await uploadImage(selectedFile)
+          imageId = imageIdJSON.id
+        }
+        // client should receive image key which then they can send to rds to save the post data
+        const body = JSON.stringify({
+          userId,
+          imageId,
+          postText,
+        })
+  
+        const savedPostDataResponse = await fetch('/api/post', {method: 'POST', body: body})
+        const userDataResponse = await fetch('api/user/?' + new URLSearchParams({id: userId.toString()}), {method:'GET'})
+        const userData = await userDataResponse.json();
+        const postData = await savedPostDataResponse.json();
+        const formattedPostData = await formaNewPostData(postData,userData)
+  
+        setShowImage("")
+        setSelectedFile(null)
+        setPostText("")
+        setImageHeight(0)
+        setPostsState((prev) => [formattedPostData, ...prev])
+  
+      } catch(err) {
+  
       }
-      // client should receive image key which then they can send to rds to save the post data
-      const body = JSON.stringify({
-        userId,
-        imageId,
-        postText,
-      })
-
-      const savedPostDataResponse = await fetch('/api/post', {method: 'POST', body: body})
-      const userDataResponse = await fetch('api/user/?' + new URLSearchParams({id: userId.toString()}), {method:'GET'})
-      const userData = await userDataResponse.json();
-      const postData = await savedPostDataResponse.json();
-      const formattedPostData = await formaNewtPostData(postData,userData)
-
-      setShowImage("")
-      setSelectedFile(null)
-      setPostText("")
-      setImageHeight(0)
-      setPostsState((prev) => [formattedPostData, ...prev])
-
-    } catch(err) {
 
     }
   };

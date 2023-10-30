@@ -1,6 +1,5 @@
-import { NextApiRequest, NextApiResponse, PageConfig } from "next";
 import { PutObjectCommand,GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const s3Region = process.env.AWS_S3_REGION;
@@ -17,7 +16,7 @@ const client = new S3Client({
   },
 });
 
-export async function POST(request: NextResponse, response: NextResponse) {
+export async function POST(request: NextRequest, response: NextResponse) {
     const request_data = await request.formData();
     const file = request_data.get("file") as Blob | null;
 
@@ -44,7 +43,7 @@ export async function POST(request: NextResponse, response: NextResponse) {
     }
 }
 
-export async function GET(req: NextResponse, res: NextResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
     try {
       // Attempt to parse the URL from req.url
       const { searchParams } = new URL(req.url);
@@ -54,14 +53,9 @@ export async function GET(req: NextResponse, res: NextResponse) {
         Key: id as string,
       });
       const src = await getSignedUrl(client, command, { expiresIn: 3600 });
-  
-      // If everything is successful, return the response
       return NextResponse.json(src);
     } catch (error) {
-      console.error("Error:", error);
-  
-      // You can return an error response or perform other error-handling logic.
-      return NextResponse.json("An error occurred while processing your request.");
+      return NextResponse.json(error);
     }
   }
 

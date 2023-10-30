@@ -11,6 +11,5 @@ type Story = StoryObj<typeof CommentBox>;
 
 export const Primary: Story = {
   args: {
-    profilePictureURL: "https://picsum.photos/id/237/200/300"
   }
 } 
