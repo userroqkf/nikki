@@ -49,13 +49,13 @@ type formattedFollowingListType = {
     following: boolean
 }
 
-export async function formatFollowingLists(followingList: Array<followingListType>): Array<formattedFollowingListType> {
+export async function formatFollowingLists(followingList: Array<followingListType>):Promise<Array<formattedFollowingListType>> {
   const res = await Promise.all(followingList.map( async (following) => {
     const {profile_picture, first_name, last_name, username} = following;
-    const profilePicture = await getImageURL(profile_picture, process.env.BASE_URL);
+    const profilePicture = getImageURL(profile_picture, process.env.BASE_URL);
     return (
       {
-        profilePictureURL: profilePicture,
+        profilePictureURL: profilePicture as string,
         fullName: first_name + " " + last_name,
         username,
         following: true
@@ -66,7 +66,7 @@ export async function formatFollowingLists(followingList: Array<followingListTyp
 }
 
 type followingPostType = {
-  follower: number;
+  follower: number; 
   following: number;
   id: number;
   first_name: string;
@@ -244,8 +244,15 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
     return formatDistanceToNow(date)
   }
 
+  type postDataType = {
+    id: number;
+    text: string;
+    image: string;
+    date_created: Date;
+    owner_id: number;
+  }
 
-  export async function formaNewtPostData(postData, userData) {
+  export async function formaNewPostData(postData: postDataType, userData: userDataType)  {
     const {date_created, id, image, owner_id, text} = postData;
     const {first_name, last_name, username, profile_picture} = userData;
     const dateCreatd = formatDateFromNow(new Date(date_created))

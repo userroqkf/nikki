@@ -11,8 +11,8 @@ type Story = StoryObj<typeof HomePageProfile>;
 
 export const Primary: Story = {
   args: { 
-    profilePicture: "https://picsum.photos/id/237/300/300",
-    backgroundImage: "https://picsum.photos/seed/picsum/2000/3000",
+    profilePictureURL: "https://picsum.photos/id/237/300/300",
+    backgroundImageURL: "https://picsum.photos/seed/picsum/2000/3000",
     fullName: "Frank Tom",
     username: "franktom293",
     followingCount: 183,

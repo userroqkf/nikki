@@ -16,7 +16,8 @@ export const Primary: Story = {
       text: "Hello this is Tom and I am just testing this component out",
       datePosted: "25s",
       likeCount: 21,
-      commentCount: 7
+      commentCount: 7,
+      liked: true,
     },
     fullName: "Tom Tom",
     username: "tomtom19238"
@@ -30,7 +31,8 @@ export const SuperLongText: Story = {
       text: "Hello this is Tom and I am just testing this component out, Hello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component ouHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component out,Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component outHello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out Hello this is Tom and I am just testing this component out",
       datePosted: "25s",
       likeCount: 21,
-      commentCount: 7
+      commentCount: 7,
+      liked: false,
     },
     fullName: "Tom Tom",
     username: "tomtom19238"
