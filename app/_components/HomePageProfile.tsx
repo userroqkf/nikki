@@ -54,11 +54,10 @@ export default function HomePageProfile({myFeed, profilePictureURL, backgroundIm
       {!myFeed && 
         <div className={styles.followButtonPos}
         onClick={async () => {
-          const url = `http://localhost:3000/api/follow`;
           if (follow) {
-            await fetch(url, {method: "PUT", body: JSON.stringify({currUser: "johndoe", followUser: username})})
+            await fetch("/api/follow", {method: "PUT", body: JSON.stringify({currUser: "johndoe", followUser: username})})
           } else {
-            await fetch(url, {method: "POST", body: JSON.stringify({currUser: "johndoe", followUser: username})})
+            await fetch("/api/follow", {method: "POST", body: JSON.stringify({currUser: "johndoe", followUser: username})})
           } 
           setFollow(!follow)
         }}>

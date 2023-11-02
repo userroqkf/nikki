@@ -52,7 +52,7 @@ type formattedFollowingListType = {
 export async function formatFollowingLists(followingList: Array<followingListType>):Promise<Array<formattedFollowingListType>> {
   const res = await Promise.all(followingList.map( async (following) => {
     const {profile_picture, first_name, last_name, username} = following;
-    const profilePicture = getImageURL(profile_picture, process.env.BASE_URL);
+    const profilePicture = getImageURL(profile_picture);
     return (
       {
         profilePictureURL: profilePicture as string,
@@ -150,8 +150,8 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
   const formattedPosts = await Promise.all(feedPosts.map(async (post) => {
     const { id, text, image, date_created, first_name, last_name, username, profile_picture, likes_count, comments_count, user_liked_post } = post;
     
-    const profilePicture = await getImageURL(profile_picture, process.env.BASE_URL);
-    const postImage = await getImageURL(image, process.env.BASE_URL);
+    const profilePicture = await getImageURL(profile_picture);
+    const postImage = await getImageURL(image);
     const dateCreated = formatDateFromNow(new Date(date_created));
     
     return {
@@ -185,7 +185,7 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
     follower_count: string;
   }
 
-  export function getImageURL(id: string, baseURL?: string) {
+  export function getImageURL(id: string) {
     try {
       if (id) {
       return "https://d1su0spwyw95eu.cloudfront.net/" + `${id}`
@@ -199,8 +199,8 @@ export async function formatFeedPosts(feedPosts: Array<feedPostsType>): Promise<
   export async function formatFeedUserData(feedUserData: feedUserDataType) {
     const {id, first_name, last_name, username, profile_picture, background_picture, follower_count, following_count} = feedUserData;
     
-    const profilePicture = await getImageURL(profile_picture, process.env.BASE_URL)
-    const backgroundImage = await getImageURL(background_picture, process.env.BASE_URL)
+    const profilePicture = await getImageURL(profile_picture)
+    const backgroundImage = await getImageURL(background_picture)
 
     const res = (
       {

@@ -35,8 +35,7 @@ export default function CommentBox({postId} : Props) {
     e.preventDefault()
     if (userContext) {
       try {
-        const url = `http://localhost:3000/api/comment`; 
-        const comment = await fetch(url, {method: 'POST', body: JSON.stringify({userId: userContext.userId, postId, commentText: text})})
+        const comment = await fetch("/api/comment", {method: 'POST', body: JSON.stringify({userId: userContext.userId, postId, commentText: text})})
         setText("")
         router.refresh();
       } catch (err) {

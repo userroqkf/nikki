@@ -25,9 +25,7 @@ export default function ConfirmSignUp() {
     if (username) {
       try {
         await Auth.confirmSignUp(username, code);
-        // confirm in database
-        const url = `http://localhost:3000/api/confirm/?`; 
-        await fetch(url, {method: "PUT", body:JSON.stringify({username})})
+        await fetch("/api/confirm/?", {method: "PUT", body:JSON.stringify({username})})
         router.push("/");
       } catch (error) {
         setError("Please try again later")

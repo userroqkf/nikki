@@ -36,8 +36,7 @@ const router = useRouter()
           email
         }
       });
-      const url = `http://localhost:3000/api/user/?`; 
-      await fetch(url, {method: "POST", body:JSON.stringify({username,firstName, lastName})})
+      await fetch("/api/user/?", {method: "POST", body:JSON.stringify({username,firstName, lastName})})
       router.push('/auth/confirm-email?' + new URLSearchParams({username: username}))
     } catch (error: Error | any) {
       const code = error.code;
