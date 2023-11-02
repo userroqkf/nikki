@@ -22,8 +22,7 @@ type authProps =
 const getUserInfo = async () => {
   const userInfo = await Auth.currentUserInfo()
   if (userInfo) {
-    const url = `http://localhost:3000/api/user/?`; 
-    const userDataResponse = await fetch(url + new URLSearchParams({ username: userInfo.username }), { method: 'GET' });
+    const userDataResponse = await fetch("/api/user/?" + new URLSearchParams({ username: userInfo.username }), { method: 'GET' });
     const userData = await userDataResponse.json();
     const userDataFormatted = userDataFormat(userData);
     return userDataFormatted

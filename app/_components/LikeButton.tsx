@@ -25,9 +25,8 @@ export default function LikeButton({likeCount, liked, currUser, postId}: Props) 
   const updateLikeButton = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     if (userContext) {
-      const url = `http://localhost:3000/api/like`;
-      if (!like) await fetch(url, {method: "POST", body: JSON.stringify({currUser, postId}) });
-      if (like) await fetch(url, {method: "DELETE", body: JSON.stringify({currUser, postId}) });
+      if (!like) await fetch("/api/like", {method: "POST", body: JSON.stringify({currUser, postId}) });
+      if (like) await fetch("/api/like", {method: "DELETE", body: JSON.stringify({currUser, postId}) });
       like ? setLikeCountUpdage(prev => prev - 1) : setLikeCountUpdage(prev => prev + 1)
       setLike(!like);
     } else {
