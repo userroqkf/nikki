@@ -1,13 +1,13 @@
 'use client'
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { ReactNode} from "react";
 import ListView from "./ListView";
 import styles from "@/_styles/Layout.module.css";
 import Image from "next/image";
 
 import logo from "../../public/logo.svg";
 import LoginStateButton from "@/_components/LoginStateButton"
-import { Amplify, Auth, Hub } from 'aws-amplify';
-import { usePathname, useRouter } from "next/navigation";
+import { Amplify} from 'aws-amplify';
+import { usePathname} from "next/navigation";
 import awsconfig from '../aws-exports';
 
 type Props = {

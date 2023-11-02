@@ -5,10 +5,6 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
 import Layout from "./_components/Layout";
-import { usePathname } from 'next/navigation';
-
-import { Amplify, Auth, Hub } from 'aws-amplify';
-import awsconfig from './aws-exports';
 import { AuthProvider } from './_components/AuthContext';
 
 // Amplify.configure(awsconfig);
