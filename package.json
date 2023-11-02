@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node path/to/createAwsExports.mjs && next build",
+    "build": "node ./createAwsExports.js && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
