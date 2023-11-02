@@ -1,7 +1,7 @@
 import fs from "fs";
 
 // Path relative to execution path
-const configFilePath = "src/aws-exports.js";
+const configFilePath = "app/aws-exports.js";
 const logPrefix = "[CreateAwsExports]";
 
 function readConfigFile() {
