@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nikki
+------
+## A social media platform for users to interact with each other by sharing posts.
+- <sub> Please note that the page is not responsive on purpose as the focus of this project was mainly on using AWS Suite and Next.js (with Typescript) </sub>
+- <sub> Please not the app was deployed on AWS ec2, however, due to cost reasons there is no live url </sub>
 
-## Getting Started
 
-First, run the development server:
+## AWS Architecture
+![image](https://github.com/userroqkf/nikki/assets/96427720/21517cfd-d004-4dcd-9fe4-8cc492ae3839)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Logic Diagram
+|<img width="1536" alt="signin" src="https://github.com/userroqkf/nikki/assets/96427720/5e36456a-15ab-4380-828b-b2428ae52b56"> | <img width="1370" alt="signup" src="https://github.com/userroqkf/nikki/assets/96427720/17a8c562-6770-44a0-bf42-7fef332c6dae">| <img width="1102" alt="follow like" src="https://github.com/userroqkf/nikki/assets/96427720/63e9e2b3-7ff0-4679-ad37-871777d80920"> |
+|------|-------|--------|
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<img width="1426" alt="edit delete post" src="https://github.com/userroqkf/nikki/assets/96427720/322fc8bd-3922-4795-8ab2-bc7a5f321c62">
+<img width="1736" alt="new post" src="https://github.com/userroqkf/nikki/assets/96427720/471a4941-a35e-4b2e-b536-8549d03938cd">
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Preview Images
+|Main Page|My Feed| Post Page| Following Page| User Page|
+|-----|------|-----|------|------|
+| <img width="915" alt="main_page" src="https://github.com/userroqkf/nikki/assets/96427720/4010c974-45bd-42d1-8dbc-77a09b1ed06a"> | <img width="915" alt="my_feed" src="https://github.com/userroqkf/nikki/assets/96427720/52ece736-b30e-4c3f-bcbb-a6a536dac5d5">|<img width="915" alt="postpage" src="https://github.com/userroqkf/nikki/assets/96427720/b12a111a-2c0c-46ad-b55c-62bbf4b2260b"> | <img width="915" alt="following" src="https://github.com/userroqkf/nikki/assets/96427720/a98dea73-09ed-4f96-9dfa-d1e6c54309aa">| <img width="915" alt="user_page" src="https://github.com/userroqkf/nikki/assets/96427720/24c67cc2-23d0-4bbc-9afc-38daad98a976">
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| <img width="519" alt="signin" src="https://github.com/userroqkf/nikki/assets/96427720/c9364f52-da63-4e85-b314-2692aa26826e"> | <img width="519" alt="signup" src="https://github.com/userroqkf/nikki/assets/96427720/d8feb562-206b-4030-b6ec-d33995c8ed17"> | <img width="519" alt="confirm" src="https://github.com/userroqkf/nikki/assets/96427720/9e9be859-98c5-4805-925d-066f01a815c6">
+|-----|------|------|
